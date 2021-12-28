@@ -17,34 +17,21 @@ class CustomMaterialTheme {
     800: Color(0xffdc5502),
     900: Color(0xffc34800),
   });
-  static const Color infoColor = Color(0xffB4C6D6);
-  static const Color secondaryColor = Color(0xff9A8C98);
-  static const Color backgroundColor = Color(0xffF2E9E4);
-  static const Color accentColor = Color(0xffF98A62);
-  static const Color textColor = Color(0xFF22223B);
-  static const Color liteTextColor = Color(0xFFF2E9E4);
-  static const Color borderColor = Color(0xFF797d88);
-  static const Color iconColor = Color(0xFFD1495B);
-  static const Color successColor = Color(0xFF57B894);
-  static const Color dangerColor = Color(0xFFD1495B);
-  static const Color warningColor = Color(0xFFF98A62);
-  static const Color disabledColor = Color(0xFFC6C2C2);
 
   static const Color appBarBackgroundColor = Color(0xff442C2E);
+  static const Color costumeGrey = Color(0xff707070);
+  static const Color costumeGreyLight = Color(0xffE0E0E0);
+  static const Color focusedBorder = Color(0xffff9561);
+  static const Color flatButtonText = Color(0xffEE8C6D);
 
   ThemeData get themeData => ThemeData(
         fontFamily: fontFamily,
         primarySwatch: primaryColor,
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         primaryColor: primaryColor,
         primaryColorBrightness: Brightness.light,
-        primaryColorLight: primaryColor[200],
+        primaryColorLight: primaryColor[400],
         primaryColorDark: primaryColor[900],
-        accentColor: accentColor,
-        accentColorBrightness: Brightness.light,
-        canvasColor: backgroundColor,
-        scaffoldBackgroundColor: Colors.white,
-        bottomAppBarColor: primaryColor[50],
         appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xFFfeeae6),
           iconTheme: IconThemeData(color: appBarBackgroundColor),
@@ -53,20 +40,26 @@ class CustomMaterialTheme {
           titleTextStyle:
               TextStyle(color: appBarBackgroundColor, fontSize: 18.0),
         ),
-        cardColor: const Color(0xffffffff),
-        dividerColor: const Color(0x1f000000),
-        highlightColor: const Color(0x66bcbcbc),
-        splashColor: const Color(0x66c8c8c8),
-        selectedRowColor: const Color(0xfff5f5f5),
-        unselectedWidgetColor: const Color(0x8a000000),
-        disabledColor: disabledColor,
-        buttonColor: const Color(0xffe0e0e0),
-        toggleableActiveColor: const Color(0xff1e88e5),
-        secondaryHeaderColor: const Color(0xffe3f2fd),
-        backgroundColor: backgroundColor,
-        dialogBackgroundColor: backgroundColor,
-        indicatorColor: const Color(0xff2196f3),
-        hintColor: const Color(0x8a000000),
-        errorColor: dangerColor,
+        inputDecorationTheme: const InputDecorationTheme(
+          enabledBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: costumeGrey)),
+          focusedBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: focusedBorder)),
+          labelStyle: TextStyle(
+            color: costumeGrey,
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: primaryColor[200],
+            onPrimary: appBarBackgroundColor,
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+              side: const BorderSide(
+                  style: BorderStyle.solid, color: costumeGreyLight),
+              onSurface: flatButtonText),
+        ),
       );
 }

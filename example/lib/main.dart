@@ -17,7 +17,7 @@ class ECommerceApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         getPages: [...ECommerceRoutePage.routes],
         locale: const Locale('fa', 'IR'),
-        //TODO translations: localizationService()
-        initialRoute: ECommerceRouteNames.loginPage,
+        translations: LocalizationService(),
+        initialRoute: ECommerceRouteNames.splashPage,
       );
 }
