@@ -1,0 +1,35 @@
+{
+	"shared" : {
+		"login" : "Login",
+		"signup" : "Signup",
+		"username" : "username",
+		"password" : "password",
+		"first_name": "first name",
+		"last_name": "last name",
+		"invalid_input" : "Invalid Input",
+		"do_not_leave_field_empty" : "don't leave this field empty",
+		"username_not_found" : "username not found",
+		"password_not_found" : "password not found",
+		"password_does_not_match_username" : "password does not match username",
+		"products" : "products",
+		"in_stock" : "in stock",
+		"not_in_stock" : "stock",
+		"toomaan" : "Toomaan",
+		"delete" : "delete",
+		"are_you_sure_delete_product" : "Are you sure you want to delete this product?",
+		"cancel" : "cancel",
+		"gender" : "gender",
+		"male" : "male",
+		"female" : "female",
+		"submit": "submit",
+		"terms_and_conditions" : "I've read the terms and conditions",
+		"edit" : "edit",
+		"farsi": "Farsi",
+		"english": "English",
+		"agreed" : "agreed",
+		"did_not_agree" : "did NOT agree",
+		"yes" : "Yes",
+		"no" : "No"
+		
+	}
+}

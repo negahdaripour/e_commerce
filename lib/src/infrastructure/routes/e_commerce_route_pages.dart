@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../../pages/admin_products/bindings/admin_products_binding.dart';
+import '../../pages/admin_products/views/admin_products_page.dart';
 import '../../pages/login/bindings/login_page_binding.dart';
 import '../../pages/login/views/login_page.dart';
 import '../../pages/splash/bindings/splash_page_binding.dart';
@@ -19,5 +21,10 @@ class ECommerceRoutePage {
       page: () => const LoginPage(),
       binding: LoginPageBinding(),
     ),
+    GetPage(
+      name: ECommerceRouteNames.adminProductsPage,
+      page: () => const AdminProductsPage(),
+      binding: AdminProductsBinding(),
+    )
   ];
 }

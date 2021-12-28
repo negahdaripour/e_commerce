@@ -1,0 +1,35 @@
+{
+	"shared" : {
+		"login" : "ورود",
+		"signup" : "ثبت نام",
+		"username" : "نام کاربری",
+		"password" : "رمزعبور",
+		"first_name": "نام",
+		"last_name": "نام خانوادگی",
+		"invalid_input" : "ورودی نامعتبر",
+		"do_not_leave_field_empty" : "این قسمت را خالی نگذارید",
+		"username_not_found" : "نام کاربری پیدا نشد",
+		"password_not_found" : "رمزعبور پیدا نشد",
+		"password_does_not_match_username" : "رمزعبور با نام کاربری مطابقت ندارد",
+		"products" : "محصولات",
+		"in_stock" : "عدد موجود",
+		"not_in_stock" : "موجود",
+		"toomaan" : "تومان",
+		"delete" : "حذف",
+		"are_you_sure_delete_product" : "از حذف محصول مطمئن هستید؟",
+		"cancel" : "لغو",
+		"gender" : "جنسیت",
+		"male" : "مذکر",
+		"female" : "مونث",
+		"submit": "ثبت",
+		"terms_and_conditions" : "شرایط و ضوابط را مطالعه کرده ام",
+		"edit" : "ویرایش",
+		"farsi": "فارسی",
+		"english": "انگلیسی",
+		"agreed" : "موافقت کرد",
+		"did_not_agree" : "موافقت نکرد",
+		"yes" : "بله",
+		"no" : "خیر"
+		
+	}
+}

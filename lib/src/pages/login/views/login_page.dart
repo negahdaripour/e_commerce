@@ -1,7 +1,8 @@
-import 'package:e_commerce/e_commerce.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../generated/locales.g.dart';
+import '../../../infrastructure/routes/e_commerce_route_names.dart';
 import '../../../infrastructure/utils/e_commerce_utils.dart';
 import '../controllers/login_page_controller.dart';
 
@@ -84,7 +85,7 @@ class LoginPage extends GetView<LoginPageController> {
               onPressed: () {
                 if (controller.formKey.currentState!.validate()) {
                   //TODO implement login
-                  //TODO Get.offNamed
+                  Get.offNamed(ECommerceRouteNames.adminProductsPage);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(LocaleKeys.shared_invalid_input.tr),
@@ -101,7 +102,7 @@ class LoginPage extends GetView<LoginPageController> {
         padding: EdgeInsetsDirectional.only(
             bottom: ECommerceUtils.bodyVerticalPadding),
         child: Align(
-          child: TextButton(
+          child: OutlinedButton(
             onPressed: () {
               //TODO implement signup
             },
