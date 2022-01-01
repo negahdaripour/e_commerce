@@ -2,6 +2,7 @@ import 'cart_item_view_model.dart';
 
 class UserViewModel {
   final int id;
+  final String picture;
   final String firstname;
   final String lastname;
   final String username;
@@ -13,6 +14,7 @@ class UserViewModel {
 
   UserViewModel(
       {required final this.id,
+      required final this.picture,
       required final this.firstname,
       required final this.lastname,
       required final this.username,
@@ -37,6 +39,7 @@ class UserViewModel {
 
     return UserViewModel(
         id: json['id'],
+        picture: json['picture'],
         firstname: json['first_name'],
         lastname: json['last_name'],
         username: json['username'],
@@ -49,6 +52,7 @@ class UserViewModel {
 
   UserViewModel copyWith({
     final int? id,
+    final String? picture,
     final String? firstname,
     final String? lastname,
     final String? username,
@@ -60,6 +64,7 @@ class UserViewModel {
   }) =>
       UserViewModel(
           id: id ?? this.id,
+          picture: picture ?? this.picture,
           firstname: firstname ?? this.firstname,
           lastname: lastname ?? this.lastname,
           username: username ?? this.username,

@@ -26,7 +26,7 @@ class LoginPage extends GetView<LoginPageController> {
           children: <Widget>[
             _loginForm(),
             _logIn(context),
-            _signIn(),
+            _signUp(),
           ],
         ),
       );
@@ -38,23 +38,6 @@ class LoginPage extends GetView<LoginPageController> {
             _username(),
             _password(),
           ],
-        ),
-      );
-
-  Widget _password() => Padding(
-        padding: EdgeInsetsDirectional.only(
-            bottom: ECommerceUtils.bodyVerticalPadding),
-        child: TextFormField(
-          controller: controller.passwordTextController,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            label: Text(LocaleKeys.shared_password.tr),
-          ),
-          validator: (final value) {
-            controller.validatePassword(value);
-            return controller.passwordValidation;
-          },
-          // prefixIcon: const Icon(Icons.remove_red_eye)), //TODO add remove_red_eye icon
         ),
       );
 
@@ -72,6 +55,23 @@ class LoginPage extends GetView<LoginPageController> {
             controller.validateUsername(value);
             return controller.usernameValidation;
           },
+        ),
+      );
+
+  Widget _password() => Padding(
+        padding: EdgeInsetsDirectional.only(
+            bottom: ECommerceUtils.bodyVerticalPadding),
+        child: TextFormField(
+          controller: controller.passwordTextController,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            label: Text(LocaleKeys.shared_password.tr),
+          ),
+          validator: (final value) {
+            controller.validatePassword(value);
+            return controller.passwordValidation;
+          },
+          // prefixIcon: const Icon(Icons.remove_red_eye)), //TODO add remove_red_eye icon
         ),
       );
 
@@ -100,13 +100,13 @@ class LoginPage extends GetView<LoginPageController> {
         ),
       );
 
-  Widget _signIn() => Padding(
+  Widget _signUp() => Padding(
         padding: EdgeInsetsDirectional.only(
             bottom: ECommerceUtils.bodyVerticalPadding),
         child: Align(
           child: OutlinedButton(
             onPressed: () {
-              //TODO implement signup
+              Get.toNamed(ECommerceRouteNames.signupPage);
             },
             child: Text(LocaleKeys.shared_signup.tr),
           ),

@@ -1,3 +1,5 @@
+import 'package:e_commerce/src/pages/signup/bindings/signup_binding.dart';
+import 'package:e_commerce/src/pages/signup/views/signup_page.dart';
 import 'package:get/get.dart';
 
 import '../../pages/add_or_edit_product/bindings/add_product_binding.dart';
@@ -40,6 +42,11 @@ class ECommerceRoutePage {
       name: ECommerceRouteNames.editProductPage,
       page: () => const AddOrEditPage<EditProductController>(),
       binding: EditProductBinding(),
+    ),
+    GetPage(
+      name: ECommerceRouteNames.signupPage,
+      page: () => const SignupPage(),
+      binding: SignupPageBinding(),
     )
   ];
 }

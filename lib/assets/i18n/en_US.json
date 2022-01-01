@@ -45,7 +45,10 @@
 		"add_product_picture" : "add product picture",
 		"edit_product" : "Edit Product",
 		"edit_product_picture" : "edit product picture",
-		"items": ""
+		"items": "",
+		"repeat_password" : "repeat password",
+		"address" : "address",
+		"add_profile_picture" : "Add Profile Picture"
 
 	}
 }

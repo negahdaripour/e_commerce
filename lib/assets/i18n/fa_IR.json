@@ -45,7 +45,10 @@
 		"add_product_picture" : "اضافه کردن تصویر محصول",
 		"edit_product" : "ویرایش محصول",
 		"edit_product_picture" : "ویراش تصویر محصول",
-		"items": "عدد"
+		"items": "عدد",
+		"repeat_password" : "تکرار رمزعبور",
+		"address" : "آدرس",
+		"add_profile_picture" : "اضافه کردن تصویر پروفابل"
 		
 	}
 }

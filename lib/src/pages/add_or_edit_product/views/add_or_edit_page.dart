@@ -28,7 +28,7 @@ class AddOrEditPage<T extends BaseController> extends GetView<T> {
         child: ListView(
           shrinkWrap: true,
           children: [
-            _imageHolder(context),
+            _productPicture(context),
             _addProductPicture(context),
             _titleAndCount(),
             _tagsField(),
@@ -42,7 +42,7 @@ class AddOrEditPage<T extends BaseController> extends GetView<T> {
         ),
       );
 
-  Widget _imageHolder(final BuildContext context) => Padding(
+  Widget _productPicture(final BuildContext context) => Padding(
         padding: EdgeInsets.only(bottom: ECommerceUtils.largePadding),
         child: Align(
           child: Container(

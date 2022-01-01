@@ -26,6 +26,7 @@ class SplashPageController extends GetxController {
   }
 
   UserDto createFirstAdmin() => UserDto(
+      picture: '',
       firstname: '',
       lastname: '',
       username: 'admin',
