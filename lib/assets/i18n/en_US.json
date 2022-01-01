@@ -29,7 +29,23 @@
 		"agreed" : "agreed",
 		"did_not_agree" : "did NOT agree",
 		"yes" : "Yes",
-		"no" : "No"
-		
+		"no" : "No",
+		"tags" : "tags",
+		"gallery": "gallery",
+		"camera" : "camera",
+		"name" : "name",
+		"count" : "count",
+		"description": "description",
+		"price" : "price",
+		"active" : "active",
+		"inactive" : "inactive",
+		"no_picture_added" : "No picture added",
+		"only_numbers_between_zero_and_nine" : "Only numbers between 0 and 9",
+		"add_product" : "Add Product",
+		"add_product_picture" : "add product picture",
+		"edit_product" : "Edit Product",
+		"edit_product_picture" : "edit product picture",
+		"items": ""
+
 	}
 }

@@ -16,18 +16,21 @@ class AdminProductsPage extends GetView<AdminProductsController> {
         appBar: AppBar(
           title: Text(LocaleKeys.shared_products.tr),
         ),
-        body: _products(),
+        body: Obx(
+            () => controller.loading.value ? _loading(context) : _products()),
         floatingActionButton: _floatingActionButton(),
       );
 
+  Widget _loading(final BuildContext context) =>
+      const Center(child: CircularProgressIndicator());
+
   Widget _products() => Padding(
         padding: EdgeInsets.only(top: ECommerceUtils.bodyVerticalPadding),
-        child: Obx(() => ListView.builder(
-              itemBuilder: (final context, final index) => _listTile(
-                  context: context,
-                  productViewModel: controller.products[index]),
-              itemCount: controller.products.length,
-            )),
+        child: ListView.builder(
+          itemBuilder: (final context, final index) => _listTile(
+              context: context, productViewModel: controller.products[index]),
+          itemCount: controller.products.length,
+        ),
       );
 
   Widget _listTile(
@@ -39,13 +42,13 @@ class AdminProductsPage extends GetView<AdminProductsController> {
         child: InkWell(
           splashColor: Theme.of(context).primaryColor.withAlpha(30),
           onTap: () {
-            //TODO goto edit page
+            controller.onProductPressed(productViewModel);
           },
           child: Card(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                _productImage(),
+                _productImage(productViewModel),
                 _productBody(productViewModel, context),
                 _productDelete(productViewModel),
               ],
@@ -54,33 +57,47 @@ class AdminProductsPage extends GetView<AdminProductsController> {
         ),
       );
 
-  Widget _productImage() => Image.asset(
-        './lib/assets/images/Image.png', //TODO get image from json
-        package: 'e_commerce',
-      ); //TODO implement list tiles for admin products
-
-  Widget _productBody(final ProductViewModel productViewModel,
-          final BuildContext context) =>
-      Padding(
-        padding: EdgeInsetsDirectional.only(
-            top: ECommerceUtils.cardBodyPadding,
-            start: ECommerceUtils.cardBodyPadding,
-            end: ECommerceUtils.cardBodyPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _productTitle(productViewModel, context),
-            _productPrice(productViewModel, context),
-            _productTags(productViewModel),
-            _productDescription(productViewModel, context),
-            _productStock(productViewModel, context),
-          ],
+  Widget _productImage(final ProductViewModel productViewModel) => Opacity(
+        opacity: productViewModel.isActive ? 1.0 : 0.3,
+        child: Image.memory(
+          controller.stringToImage(productViewModel.picture),
         ),
       );
 
-  Widget _productStock(final ProductViewModel productViewModel,
+  Widget _productBody(final ProductViewModel productViewModel,
           final BuildContext context) =>
-      Row(
+      Opacity(
+        opacity: productViewModel.isActive ? 1.0 : 0.3,
+        child: Padding(
+          padding: EdgeInsetsDirectional.only(
+              top: ECommerceUtils.extraLargePadding,
+              start: ECommerceUtils.extraLargePadding,
+              end: ECommerceUtils.extraLargePadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _productTitle(productViewModel, context),
+              _productPrice(productViewModel, context),
+              if (productViewModel.tags.isNotEmpty)
+                _productTags(productViewModel),
+              _productDescription(productViewModel, context),
+              _productStock(productViewModel, context),
+            ],
+          ),
+        ),
+      );
+
+  Widget _productStock(
+      final ProductViewModel productViewModel, final BuildContext context) {
+    if (productViewModel.count == 0) {
+      return Row(
+        children: [
+          const Icon(Icons.close),
+          Text(LocaleKeys.shared_not_in_stock.tr)
+        ],
+      );
+    } else {
+      return Row(
         children: [
           const Icon(Icons.check),
           Padding(
@@ -91,9 +108,12 @@ class AdminProductsPage extends GetView<AdminProductsController> {
               style: TextStyle(color: Theme.of(context).primaryColor),
             ),
           ),
+          Text(LocaleKeys.shared_items.tr),
           Text(LocaleKeys.shared_in_stock.tr),
         ],
       );
+    }
+  }
 
   Widget _productDescription(final ProductViewModel productViewModel,
           final BuildContext context) =>
@@ -133,7 +153,7 @@ class AdminProductsPage extends GetView<AdminProductsController> {
   Widget _productDelete(final ProductViewModel productViewModel) => Padding(
         padding: EdgeInsetsDirectional.only(
             bottom: ECommerceUtils.mediumPadding,
-            end: ECommerceUtils.cardBodyPadding),
+            end: ECommerceUtils.extraLargePadding),
         child: TextButton(
             onPressed: () {
               Get.dialog(ProductDeleteDialog(
@@ -148,7 +168,7 @@ class AdminProductsPage extends GetView<AdminProductsController> {
 
   Widget _floatingActionButton() => FloatingActionButton(
         onPressed: () {
-          //TODO go to add products for admin page
+          controller.onAddPressed();
         },
         child: const Icon(Icons.add),
       );

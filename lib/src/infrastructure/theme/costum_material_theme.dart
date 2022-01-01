@@ -1,5 +1,6 @@
-import 'package:e_commerce/src/infrastructure/utils/e_commerce_utils.dart';
 import 'package:flutter/material.dart';
+
+import '../utils/e_commerce_utils.dart';
 
 class CustomMaterialTheme {
   late final String fontFamily;
@@ -32,7 +33,7 @@ class CustomMaterialTheme {
     900: Color(0xffbb0000),
   });
 
-  static const Color appBarBackgroundColor = Color(0xff442C2E);
+  static const Color fontColor = Color(0xff442C2E);
   static const Color costumeGrey = Color(0xff707070);
   static const Color costumeGreyLight = Color(0xffE0E0E0);
   static const Color focusedBorder = Color(0xffff9561);
@@ -51,13 +52,11 @@ class CustomMaterialTheme {
         secondaryHeaderColor: secondaryColor,
         appBarTheme: AppBarTheme(
           backgroundColor: const Color(0xFFfeeae6),
-          iconTheme: const IconThemeData(color: appBarBackgroundColor),
-          actionsIconTheme: const IconThemeData(color: appBarBackgroundColor),
+          iconTheme: const IconThemeData(color: fontColor),
+          actionsIconTheme: const IconThemeData(color: fontColor),
           centerTitle: false,
           titleTextStyle: TextStyle(
-              color: appBarBackgroundColor,
-              fontSize: 18.0,
-              fontFamily: fontFamily),
+              color: fontColor, fontSize: 17.0, fontFamily: fontFamily),
         ),
         inputDecorationTheme: const InputDecorationTheme(
           enabledBorder:
@@ -71,7 +70,7 @@ class CustomMaterialTheme {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             primary: primaryColor[200],
-            onPrimary: appBarBackgroundColor,
+            onPrimary: fontColor,
           ),
         ),
         textButtonTheme: TextButtonThemeData(
@@ -85,12 +84,13 @@ class CustomMaterialTheme {
                 side: const BorderSide(
                     style: BorderStyle.solid, color: costumeGreyLight),
                 onSurface: flatButtonText)),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-            foregroundColor: appBarBackgroundColor),
+        floatingActionButtonTheme:
+            const FloatingActionButtonThemeData(foregroundColor: fontColor),
         chipTheme: ChipThemeData(
           backgroundColor: tagBackground,
           brightness: Brightness.light,
           disabledColor: tagBackground,
+          deleteIconColor: primaryColor,
           labelStyle: const TextStyle(
             color: primaryColor,
             fontWeight: FontWeight.w900,
@@ -107,6 +107,16 @@ class CustomMaterialTheme {
         ),
         textTheme: const TextTheme(
           bodyText1: TextStyle(color: costumeGrey, fontWeight: FontWeight.w400),
+        ),
+        listTileTheme: ListTileThemeData(
+            textColor: fontColor,
+            tileColor: primaryColor[50],
+            style: ListTileStyle.list),
+        progressIndicatorTheme: ProgressIndicatorThemeData(
+          linearTrackColor: primaryColor,
+          circularTrackColor: primaryColor,
+          color: primaryColor[200],
+          refreshBackgroundColor: primaryColor[200],
         ),
       );
 }

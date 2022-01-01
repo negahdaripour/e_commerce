@@ -12,8 +12,8 @@
 		"password_not_found" : "رمزعبور پیدا نشد",
 		"password_does_not_match_username" : "رمزعبور با نام کاربری مطابقت ندارد",
 		"products" : "محصولات",
-		"in_stock" : "عدد موجود",
-		"not_in_stock" : "موجود",
+		"in_stock" : " موجود",
+		"not_in_stock" : " نا موجود",
 		"toomaan" : "تومان",
 		"delete" : "حذف",
 		"are_you_sure_delete_product" : "از حذف محصول مطمئن هستید؟",
@@ -29,7 +29,23 @@
 		"agreed" : "موافقت کرد",
 		"did_not_agree" : "موافقت نکرد",
 		"yes" : "بله",
-		"no" : "خیر"
+		"no" : "خیر",
+		"tags" : "تگ ها",
+		"gallery": "گالری",
+		"camera" : "دوربین",
+		"name" : "نام",
+		"count" : "تعداد",
+		"description": "توضیحات",
+		"price" : "قیمت",
+		"active" : "فعال",
+		"inactive" : "غیرفعال",
+		"no_picture_added" : "تصویری اضافه نشد",
+		"only_numbers_between_zero_and_nine" : "فقط اعداد بین 0 تا 9",
+		"add_product" : "اضافه کردن محصول",
+		"add_product_picture" : "اضافه کردن تصویر محصول",
+		"edit_product" : "ویرایش محصول",
+		"edit_product_picture" : "ویراش تصویر محصول",
+		"items": "عدد"
 		
 	}
 }

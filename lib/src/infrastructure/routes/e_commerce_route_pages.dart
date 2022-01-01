@@ -1,5 +1,10 @@
 import 'package:get/get.dart';
 
+import '../../pages/add_or_edit_product/bindings/add_product_binding.dart';
+import '../../pages/add_or_edit_product/bindings/edit_product_binding.dart';
+import '../../pages/add_or_edit_product/controllers/add_product_controller.dart';
+import '../../pages/add_or_edit_product/controllers/edit_product_controller.dart';
+import '../../pages/add_or_edit_product/views/add_or_edit_page.dart';
 import '../../pages/admin_products/bindings/admin_products_binding.dart';
 import '../../pages/admin_products/views/admin_products_page.dart';
 import '../../pages/login/bindings/login_page_binding.dart';
@@ -25,6 +30,16 @@ class ECommerceRoutePage {
       name: ECommerceRouteNames.adminProductsPage,
       page: () => const AdminProductsPage(),
       binding: AdminProductsBinding(),
+    ),
+    GetPage(
+      name: ECommerceRouteNames.addProductPage,
+      page: () => const AddOrEditPage<AddProductController>(),
+      binding: AddProductBinding(),
+    ),
+    GetPage(
+      name: ECommerceRouteNames.editProductPage,
+      page: () => const AddOrEditPage<EditProductController>(),
+      binding: EditProductBinding(),
     )
   ];
 }

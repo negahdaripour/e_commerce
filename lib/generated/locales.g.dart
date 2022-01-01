@@ -44,6 +44,23 @@ class LocaleKeys {
   static const shared_did_not_agree = 'shared_did_not_agree';
   static const shared_yes = 'shared_yes';
   static const shared_no = 'shared_no';
+  static const shared_tags = 'shared_tags';
+  static const shared_gallery = 'shared_gallery';
+  static const shared_camera = 'shared_camera';
+  static const shared_name = 'shared_name';
+  static const shared_count = 'shared_count';
+  static const shared_description = 'shared_description';
+  static const shared_price = 'shared_price';
+  static const shared_active = 'shared_active';
+  static const shared_inactive = 'shared_inactive';
+  static const shared_no_picture_added = 'shared_no_picture_added';
+  static const shared_only_numbers_between_zero_and_nine =
+      'shared_only_numbers_between_zero_and_nine';
+  static const shared_add_product = 'shared_add_product';
+  static const shared_add_product_picture = 'shared_add_product_picture';
+  static const shared_edit_product = 'shared_edit_product';
+  static const shared_edit_product_picture = 'shared_edit_product_picture';
+  static const shared_items = 'shared_items';
 }
 
 class Locales {
@@ -80,6 +97,22 @@ class Locales {
     'shared_did_not_agree': 'did NOT agree',
     'shared_yes': 'Yes',
     'shared_no': 'No',
+    'shared_tags': 'tags',
+    'shared_gallery': 'gallery',
+    'shared_camera': 'camera',
+    'shared_name': 'name',
+    'shared_count': 'count',
+    'shared_description': 'description',
+    'shared_price': 'price',
+    'shared_active': 'active',
+    'shared_inactive': 'inactive',
+    'shared_no_picture_added': 'No picture added',
+    'shared_only_numbers_between_zero_and_nine': 'Only numbers between 0 and 9',
+    'shared_add_product': 'Add Product',
+    'shared_add_product_picture': 'add product picture',
+    'shared_edit_product': 'Edit Product',
+    'shared_edit_product_picture': 'edit product picture',
+    'shared_items': '',
   };
   static const fa_IR = {
     'shared_login': 'ورود',
@@ -95,8 +128,8 @@ class Locales {
     'shared_password_does_not_match_username':
         'رمزعبور با نام کاربری مطابقت ندارد',
     'shared_products': 'محصولات',
-    'shared_in_stock': 'عدد موجود',
-    'shared_not_in_stock': 'موجود',
+    'shared_in_stock': ' موجود',
+    'shared_not_in_stock': ' نا موجود',
     'shared_toomaan': 'تومان',
     'shared_delete': 'حذف',
     'shared_are_you_sure_delete_product': 'از حذف محصول مطمئن هستید؟',
@@ -113,5 +146,21 @@ class Locales {
     'shared_did_not_agree': 'موافقت نکرد',
     'shared_yes': 'بله',
     'shared_no': 'خیر',
+    'shared_tags': 'تگ ها',
+    'shared_gallery': 'گالری',
+    'shared_camera': 'دوربین',
+    'shared_name': 'نام',
+    'shared_count': 'تعداد',
+    'shared_description': 'توضیحات',
+    'shared_price': 'قیمت',
+    'shared_active': 'فعال',
+    'shared_inactive': 'غیرفعال',
+    'shared_no_picture_added': 'تصویری اضافه نشد',
+    'shared_only_numbers_between_zero_and_nine': 'فقط اعداد بین 0 تا 9',
+    'shared_add_product': 'اضافه کردن محصول',
+    'shared_add_product_picture': 'اضافه کردن تصویر محصول',
+    'shared_edit_product': 'ویرایش محصول',
+    'shared_edit_product_picture': 'ویراش تصویر محصول',
+    'shared_items': 'عدد',
   };
 }

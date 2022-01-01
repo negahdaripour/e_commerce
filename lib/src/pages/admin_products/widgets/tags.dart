@@ -7,16 +7,13 @@ class Tags extends StatelessWidget {
 
   const Tags({required final this.tags, final Key? key}) : super(key: key);
 
-  Widget itemBuilder(final int index) {
-    const bool forWarningDisable = true;
-    return Padding(
-      padding: EdgeInsetsDirectional.only(end: ECommerceUtils.largePadding),
-      child: ChoiceChip(
-        label: Text(tags[index]),
-        selected: false,
-      ),
-    );
-  }
+  Widget _itemBuilder(final int index) => Padding(
+        padding: EdgeInsetsDirectional.only(end: ECommerceUtils.largePadding),
+        child: ChoiceChip(
+          label: Text(tags[index]),
+          selected: false,
+        ),
+      );
 
   @override
   Widget build(final BuildContext context) => SizedBox(
@@ -25,7 +22,7 @@ class Tags extends StatelessWidget {
           padding: EdgeInsets.only(bottom: ECommerceUtils.largePadding),
           child: ListView(
             scrollDirection: Axis.horizontal,
-            children: List.generate(tags.length, itemBuilder),
+            children: List.generate(tags.length, _itemBuilder),
           ),
         ),
       );

@@ -15,10 +15,10 @@ class LoginPage extends GetView<LoginPageController> {
           title: Text(
               '${LocaleKeys.shared_login.tr}/${LocaleKeys.shared_signup.tr}'),
         ),
-        body: _login(context),
+        body: _body(context),
       );
 
-  Widget _login(final BuildContext context) => Padding(
+  Widget _body(final BuildContext context) => Padding(
         padding: EdgeInsetsDirectional.only(
             start: ECommerceUtils.bodyHorizontalPadding,
             end: ECommerceUtils.bodyHorizontalPadding),
@@ -84,12 +84,14 @@ class LoginPage extends GetView<LoginPageController> {
             child: ElevatedButton(
               onPressed: () {
                 if (controller.formKey.currentState!.validate()) {
-                  //TODO implement login
+                  //TODO implement login shared preferences
                   Get.offNamed(ECommerceRouteNames.adminProductsPage);
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(LocaleKeys.shared_invalid_input.tr),
-                  ));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(LocaleKeys.shared_invalid_input.tr),
+                    ),
+                  );
                 }
               },
               child: Text(LocaleKeys.shared_login.tr),
