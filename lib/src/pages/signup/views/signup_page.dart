@@ -218,7 +218,7 @@ class SignupPage extends GetView<SignupPageController> {
               if (controller.formKey.currentState!.validate()) {
                 if (controller.imageBytes.value != null) {
                   controller.addUser();
-                  //TODO go to user product page
+                  Get.back(result: true);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

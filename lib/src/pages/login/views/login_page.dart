@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../generated/locales.g.dart';
-import '../../../infrastructure/routes/e_commerce_route_names.dart';
 import '../../../infrastructure/utils/e_commerce_utils.dart';
 import '../controllers/login_page_controller.dart';
 
@@ -85,7 +84,7 @@ class LoginPage extends GetView<LoginPageController> {
               onPressed: () {
                 if (controller.formKey.currentState!.validate()) {
                   //TODO implement login shared preferences
-                  Get.offNamed(ECommerceRouteNames.adminProductsPage);
+                  controller.onLoginPressed();
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -106,7 +105,7 @@ class LoginPage extends GetView<LoginPageController> {
         child: Align(
           child: OutlinedButton(
             onPressed: () {
-              Get.toNamed(ECommerceRouteNames.signupPage);
+              controller.onSignupPressed();
             },
             child: Text(LocaleKeys.shared_signup.tr),
           ),

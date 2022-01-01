@@ -1,5 +1,7 @@
 import 'package:e_commerce/src/pages/signup/bindings/signup_binding.dart';
 import 'package:e_commerce/src/pages/signup/views/signup_page.dart';
+import 'package:e_commerce/src/pages/user_products/bindings/user_products_binding.dart';
+import 'package:e_commerce/src/pages/user_products/views/user_products_page.dart';
 import 'package:get/get.dart';
 
 import '../../pages/add_or_edit_product/bindings/add_product_binding.dart';
@@ -47,6 +49,11 @@ class ECommerceRoutePage {
       name: ECommerceRouteNames.signupPage,
       page: () => const SignupPage(),
       binding: SignupPageBinding(),
+    ),
+    GetPage(
+      name: ECommerceRouteNames.userProductsPage,
+      page: () => const UserProductsPage(),
+      binding: UserProductsBinding(),
     )
   ];
 }

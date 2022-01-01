@@ -1,3 +1,4 @@
+import 'package:e_commerce/e_commerce.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,6 +20,7 @@ class LoginPageController extends GetxController {
   UserViewModel? currentUser;
 
   Future<void> getUsers() async {
+    users.clear();
     users = await loginRepository.getUsers();
   }
 
@@ -57,6 +59,21 @@ class LoginPageController extends GetxController {
   void validatePassword(final String? value) {
     passwordValidation = checkEmptyField(value);
     passwordValidation ??= checkPasswordValidation(value);
+  }
+
+  void onSignupPressed() async {
+    final result = await Get.toNamed(ECommerceRouteNames.signupPage);
+    if (result != null && result) {
+      await getUsers();
+    }
+  }
+
+  void onLoginPressed() async {
+    if (currentUser!.isAdmin) {
+      await Get.offNamed(ECommerceRouteNames.adminProductsPage);
+    } else {
+      await Get.offNamed(ECommerceRouteNames.userProductsPage);
+    }
   }
 
   @override

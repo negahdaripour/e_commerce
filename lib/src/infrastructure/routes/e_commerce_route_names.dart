@@ -6,4 +6,5 @@ class ECommerceRouteNames {
       '/e_commerce_module_admin_products_page';
   static const String addProductPage = '/e_commerce_add_product_page';
   static const String editProductPage = '/e_commerce_edit_product_page';
+  static const String userProductsPage = '/e_commerce_user_products_page';
 }
