@@ -48,7 +48,8 @@
 		"items": "",
 		"repeat_password" : "repeat password",
 		"address" : "address",
-		"add_profile_picture" : "Add Profile Picture"
+		"add_profile_picture" : "Add Profile Picture",
+		"product_detail" : "Product Details"
 
 	}
 }

@@ -1,8 +1,8 @@
-import 'package:e_commerce/e_commerce.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../generated/locales.g.dart';
+import '../../../infrastructure/routes/e_commerce_route_names.dart';
 import '../../shared/models/user_view_model.dart';
 import '../repositories/login_repository.dart';
 
@@ -72,7 +72,8 @@ class LoginPageController extends GetxController {
     if (currentUser!.isAdmin) {
       await Get.offNamed(ECommerceRouteNames.adminProductsPage);
     } else {
-      await Get.offNamed(ECommerceRouteNames.userProductsPage);
+      await Get.offNamed(ECommerceRouteNames.userProductsPage,
+          parameters: {'id': '${currentUser!.id}'});
     }
   }
 

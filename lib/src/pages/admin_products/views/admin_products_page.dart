@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import '../../../../generated/locales.g.dart';
 import '../../../infrastructure/utils/e_commerce_utils.dart';
 import '../../shared/models/product_view_model.dart';
+import '../../shared/widgets/tags.dart';
 import '../controllers/admin_products_page_controller.dart';
 import '../widgets/product_delete_dialog.dart';
-import '../widgets/tags.dart';
 
 class AdminProductsPage extends GetView<AdminProductsController> {
   const AdminProductsPage({final Key? key}) : super(key: key);
@@ -16,13 +16,11 @@ class AdminProductsPage extends GetView<AdminProductsController> {
         appBar: AppBar(
           title: Text(LocaleKeys.shared_products.tr),
         ),
-        body: Obx(
-            () => controller.loading.value ? _loading(context) : _products()),
+        body: Obx(() => controller.loading.value ? _loading() : _products()),
         floatingActionButton: _floatingActionButton(),
       );
 
-  Widget _loading(final BuildContext context) =>
-      const Center(child: CircularProgressIndicator());
+  Widget _loading() => const Center(child: CircularProgressIndicator());
 
   Widget _products() => Padding(
         padding: EdgeInsets.only(top: ECommerceUtils.bodyVerticalPadding),
@@ -47,7 +45,7 @@ class AdminProductsPage extends GetView<AdminProductsController> {
           child: Card(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+              children: <Widget>[
                 _productImage(productViewModel),
                 _productBody(productViewModel, context),
                 _productDelete(productViewModel),
@@ -75,7 +73,7 @@ class AdminProductsPage extends GetView<AdminProductsController> {
               end: ECommerceUtils.extraLargePadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               _productTitle(productViewModel, context),
               _productPrice(productViewModel, context),
               if (productViewModel.tags.isNotEmpty)
@@ -84,6 +82,41 @@ class AdminProductsPage extends GetView<AdminProductsController> {
               _productStock(productViewModel, context),
             ],
           ),
+        ),
+      );
+
+  Widget _productTitle(final ProductViewModel productViewModel,
+          final BuildContext context) =>
+      Padding(
+        padding: EdgeInsets.only(bottom: ECommerceUtils.largePadding),
+        child: Text(
+          productViewModel.title,
+          style: Theme.of(context).textTheme.headline5,
+        ),
+      );
+
+  Widget _productPrice(final ProductViewModel productViewModel,
+          final BuildContext context) =>
+      Padding(
+        padding: EdgeInsets.only(bottom: ECommerceUtils.largePadding),
+        child: Text(
+          '${productViewModel.price} ${LocaleKeys.shared_toomaan.tr} ',
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+      );
+
+  Widget _productTags(final ProductViewModel productViewModel) => Tags(
+        tags: productViewModel.tags,
+      );
+
+  Widget _productDescription(final ProductViewModel productViewModel,
+          final BuildContext context) =>
+      Padding(
+        padding: EdgeInsets.only(bottom: ECommerceUtils.largePadding),
+        child: Text(
+          productViewModel.description,
+          maxLines: 2,
+          style: Theme.of(context).textTheme.bodyText1,
         ),
       );
 
@@ -114,41 +147,6 @@ class AdminProductsPage extends GetView<AdminProductsController> {
       );
     }
   }
-
-  Widget _productDescription(final ProductViewModel productViewModel,
-          final BuildContext context) =>
-      Padding(
-        padding: EdgeInsets.only(bottom: ECommerceUtils.largePadding),
-        child: Text(
-          productViewModel.description,
-          maxLines: 2,
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-      );
-
-  Widget _productTags(final ProductViewModel productViewModel) => Tags(
-        tags: productViewModel.tags,
-      );
-
-  Widget _productPrice(final ProductViewModel productViewModel,
-          final BuildContext context) =>
-      Padding(
-        padding: EdgeInsets.only(bottom: ECommerceUtils.largePadding),
-        child: Text(
-          '${productViewModel.price} ${LocaleKeys.shared_toomaan.tr} ',
-          style: Theme.of(context).textTheme.bodyText2,
-        ),
-      );
-
-  Widget _productTitle(final ProductViewModel productViewModel,
-          final BuildContext context) =>
-      Padding(
-        padding: EdgeInsets.only(bottom: ECommerceUtils.largePadding),
-        child: Text(
-          productViewModel.title,
-          style: Theme.of(context).textTheme.headline5,
-        ),
-      );
 
   Widget _productDelete(final ProductViewModel productViewModel) => Padding(
         padding: EdgeInsetsDirectional.only(

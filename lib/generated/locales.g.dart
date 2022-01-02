@@ -64,6 +64,7 @@ class LocaleKeys {
   static const shared_repeat_password = 'shared_repeat_password';
   static const shared_address = 'shared_address';
   static const shared_add_profile_picture = 'shared_add_profile_picture';
+  static const shared_product_detail = 'shared_product_detail';
 }
 
 class Locales {
@@ -119,6 +120,7 @@ class Locales {
     'shared_repeat_password': 'repeat password',
     'shared_address': 'address',
     'shared_add_profile_picture': 'Add Profile Picture',
+    'shared_product_detail': 'Product Details',
   };
   static const fa_IR = {
     'shared_login': 'ورود',
@@ -171,5 +173,6 @@ class Locales {
     'shared_repeat_password': 'تکرار رمزعبور',
     'shared_address': 'آدرس',
     'shared_add_profile_picture': 'اضافه کردن تصویر پروفابل',
+    'shared_product_detail': 'جزئیات محصول',
   };
 }

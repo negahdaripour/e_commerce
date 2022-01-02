@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:e_commerce/e_commerce.dart';
 import 'package:get/get.dart';
 
 import '../../../../generated/locales.g.dart';

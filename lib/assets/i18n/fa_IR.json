@@ -48,7 +48,9 @@
 		"items": "عدد",
 		"repeat_password" : "تکرار رمزعبور",
 		"address" : "آدرس",
-		"add_profile_picture" : "اضافه کردن تصویر پروفابل"
+		"add_profile_picture" : "اضافه کردن تصویر پروفابل",
+		"product_detail" : "جزئیات محصول"
+
 		
 	}
 }

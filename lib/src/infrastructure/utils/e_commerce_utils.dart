@@ -11,6 +11,7 @@ class ECommerceUtils {
   static double bodyVerticalPadding = 30.0;
 
   static double loginButtonWidth = 100.0;
+  static double cardRowHeight = 20.0;
 
   static double tagsHeight = 50.0;
 

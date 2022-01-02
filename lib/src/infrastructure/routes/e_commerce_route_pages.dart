@@ -1,7 +1,5 @@
-import 'package:e_commerce/src/pages/signup/bindings/signup_binding.dart';
-import 'package:e_commerce/src/pages/signup/views/signup_page.dart';
-import 'package:e_commerce/src/pages/user_products/bindings/user_products_binding.dart';
-import 'package:e_commerce/src/pages/user_products/views/user_products_page.dart';
+import 'package:e_commerce/src/pages/product_details/bindings/product_detail_binding.dart';
+import 'package:e_commerce/src/pages/product_details/views/product_details_page.dart';
 import 'package:get/get.dart';
 
 import '../../pages/add_or_edit_product/bindings/add_product_binding.dart';
@@ -13,8 +11,12 @@ import '../../pages/admin_products/bindings/admin_products_binding.dart';
 import '../../pages/admin_products/views/admin_products_page.dart';
 import '../../pages/login/bindings/login_page_binding.dart';
 import '../../pages/login/views/login_page.dart';
+import '../../pages/signup/bindings/signup_binding.dart';
+import '../../pages/signup/views/signup_page.dart';
 import '../../pages/splash/bindings/splash_page_binding.dart';
 import '../../pages/splash/views/splash_page.dart';
+import '../../pages/user_products/bindings/user_products_binding.dart';
+import '../../pages/user_products/views/user_products_page.dart';
 import 'e_commerce_route_names.dart';
 
 class ECommerceRoutePage {
@@ -54,6 +56,11 @@ class ECommerceRoutePage {
       name: ECommerceRouteNames.userProductsPage,
       page: () => const UserProductsPage(),
       binding: UserProductsBinding(),
-    )
+    ),
+    GetPage(
+      name: ECommerceRouteNames.productDetailPage,
+      page: () => const ProductDetailsPage(),
+      binding: ProductDetailBinding(),
+    ),
   ];
 }

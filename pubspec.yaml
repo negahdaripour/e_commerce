@@ -8,9 +8,14 @@ environment:
   flutter: ">=2.8.1"
 
 dependencies:
+
   get: ^4.6.1
   dio: ^4.0.4
   image_picker: ^0.8.4+4
+
+  number_picker:
+    path: ./number_picker
+
   flutter:
     sdk: flutter
 

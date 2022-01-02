@@ -39,6 +39,7 @@ class CustomMaterialTheme {
   static const Color focusedBorder = Color(0xffff9561);
   static const Color flatButtonText = Color(0xffEE8C6D);
   static const Color tagBackground = Color(0xFFfeeae6);
+  static const Color favoriteColor = Color(0xffbb0000);
 
   ThemeData get themeData => ThemeData(
         fontFamily: fontFamily,
@@ -48,7 +49,7 @@ class CustomMaterialTheme {
         primaryColorBrightness: Brightness.light,
         primaryColorLight: primaryColor[400],
         primaryColorDark: primaryColor[900],
-        accentColor: primaryColor,
+        accentColor: secondaryColor,
         secondaryHeaderColor: secondaryColor,
         appBarTheme: AppBarTheme(
           backgroundColor: const Color(0xFFfeeae6),

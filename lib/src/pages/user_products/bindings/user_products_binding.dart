@@ -5,6 +5,7 @@ import '../controllers/user_products_controller.dart';
 class UserProductsBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(UserProductsController.new);
+    Get.lazyPut(() => UserProductsController(
+        userId: int.tryParse(Get.parameters['id'] ?? '') ?? 0));
   }
 }
