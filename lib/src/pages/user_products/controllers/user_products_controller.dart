@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:e_commerce/src/infrastructure/routes/e_commerce_route_names.dart';
 import 'package:get/get.dart';
 
+import '../../../infrastructure/routes/e_commerce_route_names.dart';
 import '../../shared/models/cart_item_view_model.dart';
 import '../../shared/models/product_view_model.dart';
 import '../../shared/models/user_dto.dart';
@@ -15,6 +15,7 @@ class UserProductsController extends GetxController {
   final int userId;
   RxBool isFavorite = false.obs;
   RxBool loading = true.obs;
+  RxInt numberOfItemsInCart = 0.obs;
 
   UserProductsController({required final this.userId});
 
@@ -36,10 +37,19 @@ class UserProductsController extends GetxController {
     }
     currentUser = await currentUserRepository.getUser(userId);
 
-    fillProductFavoriteMap();
     productCartStatus.value = currentUser.cart;
+    fillProductFavoriteMap();
+
+    setNumberOfItemsInCart();
 
     loading.value = false;
+  }
+
+  void setNumberOfItemsInCart() {
+    numberOfItemsInCart.value = 0;
+    for (final element in productCartStatus) {
+      numberOfItemsInCart.value += element.count;
+    }
   }
 
   Uint8List stringToImage(final String base64String) =>
@@ -94,6 +104,8 @@ class UserProductsController extends GetxController {
         isAdmin: currentUser.isAdmin,
         favourites: currentUser.favourites,
         cart: productCartStatus);
+
+    setNumberOfItemsInCart();
     await currentUserRepository.editUser(userId, userDto);
   }
 
@@ -117,6 +129,15 @@ class UserProductsController extends GetxController {
   void onProductPressed(final int id) async {
     final result = await Get.toNamed(ECommerceRouteNames.productDetailPage,
         parameters: {'productId': '$id', 'userId': '$userId'});
+    if (result == null) {
+      loading.value = true;
+      await initialize();
+    }
+  }
+
+  void onShoppingCartPressed() async {
+    final result = await Get.toNamed(ECommerceRouteNames.userCartPage,
+        parameters: {'id': '$userId'});
     if (result == null) {
       loading.value = true;
       await initialize();

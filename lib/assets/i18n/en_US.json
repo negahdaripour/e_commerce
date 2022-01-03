@@ -49,7 +49,11 @@
 		"repeat_password" : "repeat password",
 		"address" : "address",
 		"add_profile_picture" : "Add Profile Picture",
-		"product_detail" : "Product Details"
+		"product_detail" : "Product Details",
+		"cart" : "Cart",
+		"item_count" : "Item Count :",
+		"total_price" : "Total Price :",
+		"check_out" : "Check Out"
 
 	}
 }

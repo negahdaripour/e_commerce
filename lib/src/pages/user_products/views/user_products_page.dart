@@ -14,6 +14,7 @@ class UserProductsPage extends GetView<UserProductsController> {
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
+          actions: <Widget>[_shoppingCartIcon(context)],
           title: Text(LocaleKeys.shared_products.tr),
         ),
         body: Obx(
@@ -22,6 +23,35 @@ class UserProductsPage extends GetView<UserProductsController> {
       );
 
   Widget _loading() => const Center(child: CircularProgressIndicator());
+
+  Widget _shoppingCartIcon(final BuildContext context) => Obx(() => Stack(
+        alignment: const Alignment(0.6, -0.6),
+        children: <Widget>[
+          IconButton(
+            onPressed: () {
+              controller.onShoppingCartPressed();
+            },
+            icon: const Icon(Icons.shopping_cart_rounded),
+          ),
+          if (controller.numberOfItemsInCart.value != 0 &&
+              !controller.loading.value)
+            _numberOfItemsInCart(context),
+        ],
+      ));
+
+  Widget _numberOfItemsInCart(final BuildContext context) => Container(
+        width: 17.0,
+        height: 17.0,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondary,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Text(
+          '${controller.numberOfItemsInCart.value}',
+          style: const TextStyle(color: Colors.white),
+        ),
+      );
 
   Widget _products() => Padding(
         padding: EdgeInsets.only(top: ECommerceUtils.bodyVerticalPadding),

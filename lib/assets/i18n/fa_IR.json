@@ -49,8 +49,11 @@
 		"repeat_password" : "تکرار رمزعبور",
 		"address" : "آدرس",
 		"add_profile_picture" : "اضافه کردن تصویر پروفابل",
-		"product_detail" : "جزئیات محصول"
-
+		"product_detail" : "جزئیات محصول",
+		"cart" : "سبد خرید",
+		"item_count" : "تعداد اقلام :",
+		"total_price" : "قیمت کل :",
+		"check_out" : "اتمام خرید"
 		
 	}
 }

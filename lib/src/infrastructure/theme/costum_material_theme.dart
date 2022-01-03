@@ -43,13 +43,11 @@ class CustomMaterialTheme {
 
   ThemeData get themeData => ThemeData(
         fontFamily: fontFamily,
-        primarySwatch: primaryColor,
         brightness: Brightness.light,
         primaryColor: primaryColor,
         primaryColorBrightness: Brightness.light,
         primaryColorLight: primaryColor[400],
         primaryColorDark: primaryColor[900],
-        accentColor: secondaryColor,
         secondaryHeaderColor: secondaryColor,
         appBarTheme: AppBarTheme(
           backgroundColor: const Color(0xFFfeeae6),
@@ -85,8 +83,10 @@ class CustomMaterialTheme {
                 side: const BorderSide(
                     style: BorderStyle.solid, color: costumeGreyLight),
                 onSurface: flatButtonText)),
-        floatingActionButtonTheme:
-            const FloatingActionButtonThemeData(foregroundColor: fontColor),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          foregroundColor: fontColor,
+          backgroundColor: primaryColor,
+        ),
         chipTheme: ChipThemeData(
           backgroundColor: tagBackground,
           brightness: Brightness.light,
@@ -118,6 +118,34 @@ class CustomMaterialTheme {
           circularTrackColor: primaryColor,
           color: primaryColor[200],
           refreshBackgroundColor: primaryColor[200],
+        ),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: primaryColor)
+            .copyWith(secondary: secondaryColor),
+        dividerTheme: const DividerThemeData(color: costumeGrey),
+        checkboxTheme: CheckboxThemeData(
+          fillColor: MaterialStateProperty.resolveWith((final states) {
+            if (states.contains(MaterialState.selected)) {
+              return primaryColor;
+            } else {
+              return costumeGrey;
+            }
+          }),
+        ),
+        switchTheme: SwitchThemeData(
+          thumbColor: MaterialStateProperty.resolveWith((final states) {
+            if (states.contains(MaterialState.selected)) {
+              return primaryColor;
+            } else {
+              return Colors.white;
+            }
+          }),
+          trackColor: MaterialStateProperty.resolveWith((final states) {
+            if (states.contains(MaterialState.selected)) {
+              return primaryColor[200];
+            } else {
+              return Colors.grey;
+            }
+          }),
         ),
       );
 }

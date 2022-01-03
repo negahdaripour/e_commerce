@@ -16,6 +16,7 @@ class ProductDetailController extends GetxController {
   RxBool loading = true.obs;
   RxBool isFavorite = false.obs;
   RxnInt cartItemCount = RxnInt();
+  RxInt numberOfItemsInCart = 0.obs;
   ProductDetailRepository productDetailRepository = ProductDetailRepository();
   UserDetailRepository userDetailRepository = UserDetailRepository();
 
@@ -28,11 +29,19 @@ class ProductDetailController extends GetxController {
   Uint8List stringToImage(final String base64String) =>
       base64Decode(base64String);
 
+  void setNumberOfItemsInCart() {
+    numberOfItemsInCart.value = 0;
+    for (final element in user.value!.cart) {
+      numberOfItemsInCart.value += element.count;
+    }
+  }
+
   Future<void> getInformation() async {
     product.value = await productDetailRepository.getProduct(productId);
     user.value = await userDetailRepository.getUser(userId);
     isFavorite.value = getProductFavoriteStatus(productId);
     getProductCountInCart();
+    setNumberOfItemsInCart();
     loading.value = false;
   }
 
@@ -79,9 +88,10 @@ class ProductDetailController extends GetxController {
     }
 
     getProductCountInCart();
+    setNumberOfItemsInCart();
 
     final UserDto userDto = UserDto(
-        picture: user.value!.password,
+        picture: user.value!.picture,
         firstname: user.value!.firstname,
         lastname: user.value!.lastname,
         username: user.value!.username,

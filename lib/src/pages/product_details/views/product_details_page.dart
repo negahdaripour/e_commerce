@@ -13,11 +13,40 @@ class ProductDetailsPage extends GetView<ProductDetailController> {
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
+          actions: <Widget>[_shoppingCartIcon(context)],
           title: Text(LocaleKeys.shared_product_detail.tr),
         ),
         body: Obx(
           () =>
               controller.loading.value ? _loading() : _productDetails(context),
+        ),
+      );
+
+  Widget _shoppingCartIcon(final BuildContext context) => Obx(() => Stack(
+        alignment: const Alignment(0.6, -0.6),
+        children: <Widget>[
+          IconButton(
+            onPressed: () {
+              //TODO got to cart page
+            },
+            icon: const Icon(Icons.shopping_cart_rounded),
+          ),
+          if (controller.numberOfItemsInCart.value != 0)
+            _numberOfItemsInCart(context),
+        ],
+      ));
+
+  Widget _numberOfItemsInCart(final BuildContext context) => Container(
+        width: 17.0,
+        height: 17.0,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondary,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Text(
+          '${controller.numberOfItemsInCart.value}',
+          style: const TextStyle(color: Colors.white),
         ),
       );
 

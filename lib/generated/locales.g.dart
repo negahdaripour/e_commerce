@@ -65,6 +65,10 @@ class LocaleKeys {
   static const shared_address = 'shared_address';
   static const shared_add_profile_picture = 'shared_add_profile_picture';
   static const shared_product_detail = 'shared_product_detail';
+  static const shared_cart = 'shared_cart';
+  static const shared_item_count = 'shared_item_count';
+  static const shared_total_price = 'shared_total_price';
+  static const shared_check_out = 'shared_check_out';
 }
 
 class Locales {
@@ -121,6 +125,10 @@ class Locales {
     'shared_address': 'address',
     'shared_add_profile_picture': 'Add Profile Picture',
     'shared_product_detail': 'Product Details',
+    'shared_cart': 'Cart',
+    'shared_item_count': 'Item Count :',
+    'shared_total_price': 'Total Price :',
+    'shared_check_out': 'Check Out',
   };
   static const fa_IR = {
     'shared_login': 'ورود',
@@ -174,5 +182,9 @@ class Locales {
     'shared_address': 'آدرس',
     'shared_add_profile_picture': 'اضافه کردن تصویر پروفابل',
     'shared_product_detail': 'جزئیات محصول',
+    'shared_cart': 'سبد خرید',
+    'shared_item_count': 'تعداد اقلام :',
+    'shared_total_price': 'قیمت کل :',
+    'shared_check_out': 'اتمام خرید',
   };
 }
