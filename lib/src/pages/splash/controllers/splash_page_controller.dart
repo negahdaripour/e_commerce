@@ -14,17 +14,6 @@ class SplashPageController extends GetxController {
     users = await splashRepository.getUsers();
   }
 
-  bool checkUserRole() {
-    if (currentUser != null) {
-      if (currentUser!.isAdmin) {
-        //TODO go to login page OR the admin products page
-        return true;
-      }
-      return false;
-    }
-    return false;
-  }
-
   UserDto createFirstAdmin() => UserDto(
       picture: '',
       firstname: '',

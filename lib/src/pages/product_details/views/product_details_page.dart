@@ -27,11 +27,12 @@ class ProductDetailsPage extends GetView<ProductDetailController> {
         children: <Widget>[
           IconButton(
             onPressed: () {
-              //TODO got to cart page
+              controller.onShoppingCartPressed();
             },
             icon: const Icon(Icons.shopping_cart_rounded),
           ),
-          if (controller.numberOfItemsInCart.value != 0)
+          if (controller.numberOfItemsInCart.value != 0 &&
+              !controller.loading.value)
             _numberOfItemsInCart(context),
         ],
       ));
@@ -56,9 +57,8 @@ class ProductDetailsPage extends GetView<ProductDetailController> {
         children: <Widget>[_productImage(), _productBody(context)],
       ));
 
-  Widget _productImage() => Image.memory(
-        controller.stringToImage(controller.product.value!.picture),
-      );
+  Widget _productImage() =>
+      Image.memory(controller.stringToImage(controller.product.value!.picture));
 
   Widget _productBody(final BuildContext context) => Padding(
         padding: EdgeInsetsDirectional.all(

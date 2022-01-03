@@ -58,7 +58,7 @@ class UserCartPage extends GetView<UserCartController> {
             horizontal: ECommerceUtils.bodyHorizontalPadding),
         child: ListView(
           children: [
-            _products(context),
+            Obx(() => _products(context)),
             _itemsCount(),
             const Divider(),
             _itemsTotalPrice(),
@@ -80,7 +80,14 @@ class UserCartPage extends GetView<UserCartController> {
         ),
       );
     } else {
-      return const Center(); //TODO write message that says cart is empty
+      return Center(
+          child: Padding(
+        padding: EdgeInsets.all(ECommerceUtils.bodyVerticalPadding),
+        child: Text(
+          'سبد خرید شما خالی است',
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+      ));
     }
   }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:e_commerce/e_commerce.dart';
 import 'package:get/get.dart';
 
 import '../../shared/models/cart_item_view_model.dart';
@@ -36,7 +37,7 @@ class ProductDetailController extends GetxController {
     }
   }
 
-  Future<void> getInformation() async {
+  Future<void> initialize() async {
     product.value = await productDetailRepository.getProduct(productId);
     user.value = await userDetailRepository.getUser(userId);
     isFavorite.value = getProductFavoriteStatus(productId);
@@ -111,9 +112,18 @@ class ProductDetailController extends GetxController {
     cartItemCount.value = (cartItem.productId == 0) ? 0 : cartItem.count;
   }
 
+  void onShoppingCartPressed() async {
+    final result = await Get.toNamed(ECommerceRouteNames.userCartPage,
+        parameters: {'id': '$userId'});
+    if (result == null) {
+      loading.value = true;
+      await initialize();
+    }
+  }
+
   @override
   void onInit() async {
     super.onInit();
-    await getInformation();
+    await initialize();
   }
 }

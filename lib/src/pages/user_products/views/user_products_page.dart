@@ -75,6 +75,7 @@ class UserProductsPage extends GetView<UserProductsController> {
           },
           child: Card(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 _productImage(productViewModel),
                 _productBody(context, productViewModel),
@@ -86,6 +87,8 @@ class UserProductsPage extends GetView<UserProductsController> {
 
   Widget _productImage(final ProductViewModel productViewModel) => Image.memory(
         controller.stringToImage(productViewModel.picture),
+        height: 250.0,
+        fit: BoxFit.fill,
       );
 
   Widget _productBody(final BuildContext context,
