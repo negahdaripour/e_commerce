@@ -12,6 +12,9 @@ import '../../shared/models/user_view_model.dart';
 import '../repositories/signup_repository.dart';
 
 class SignupPageController extends GetxController {
+  RxBool showPassword = false.obs;
+  RxBool showPasswordRepeat = false.obs;
+  RxBool loading = true.obs;
   SignupRepository signupRepository = SignupRepository();
 
   File? imageResult;
@@ -52,6 +55,7 @@ class SignupPageController extends GetxController {
 
   Future<void> getUsers() async {
     users = await signupRepository.getUsers();
+    loading.value = false;
   }
 
   String? checkEmptyField(final String? text) {
@@ -124,6 +128,14 @@ class SignupPageController extends GetxController {
         cart: []);
 
     await signupRepository.addUser(userDto);
+  }
+
+  void togglePasswordVisibility() {
+    showPassword.value = !showPassword.value;
+  }
+
+  void togglePasswordRepeatVisibility() {
+    showPasswordRepeat.value = !showPasswordRepeat.value;
   }
 
   @override

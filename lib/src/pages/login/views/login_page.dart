@@ -10,12 +10,15 @@ class LoginPage extends GetView<LoginPageController> {
 
   @override
   Widget build(final BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(
-              '${LocaleKeys.shared_login.tr}/${LocaleKeys.shared_signup.tr}'),
-        ),
-        body: _body(context),
-      );
+      appBar: AppBar(
+        title: Text(
+            '${LocaleKeys.shared_login.tr}/${LocaleKeys.shared_signup.tr}'),
+      ),
+      body: Obx(
+        () => (controller.loading.value) ? _loading() : _body(context),
+      ));
+
+  Widget _loading() => const Center(child: CircularProgressIndicator());
 
   Widget _body(final BuildContext context) => Padding(
         padding: EdgeInsetsDirectional.only(
@@ -61,16 +64,22 @@ class LoginPage extends GetView<LoginPageController> {
         padding: EdgeInsetsDirectional.only(
             bottom: ECommerceUtils.bodyVerticalPadding),
         child: TextFormField(
+          obscureText: !controller.showPassword.value,
           controller: controller.passwordTextController,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             label: Text(LocaleKeys.shared_password.tr),
+            suffixIcon: GestureDetector(
+              onTap: () {
+                controller.togglePasswordVisibility();
+              },
+              child: const Icon(Icons.remove_red_eye),
+            ),
           ),
           validator: (final value) {
             controller.validatePassword(value);
             return controller.passwordValidation;
           },
-          // prefixIcon: const Icon(Icons.remove_red_eye)), //TODO add remove_red_eye icon
         ),
       );
 

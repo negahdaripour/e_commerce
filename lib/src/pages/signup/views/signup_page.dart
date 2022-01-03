@@ -14,8 +14,12 @@ class SignupPage extends GetView<SignupPageController> {
         appBar: AppBar(
           title: Text(LocaleKeys.shared_signup.tr),
         ),
-        body: _body(context),
+        body: Obx(
+          () => controller.loading.value ? _loading() : _body(context),
+        ),
       );
+
+  Widget _loading() => const Center(child: CircularProgressIndicator());
 
   Widget _body(final BuildContext context) => Padding(
         padding: EdgeInsetsDirectional.only(
@@ -102,13 +106,13 @@ class SignupPage extends GetView<SignupPageController> {
   Widget _gallery(final BuildContext context) => Padding(
         padding: EdgeInsets.all(ECommerceUtils.bottomSheetPadding),
         child: GestureDetector(
+          onTap: () {
+            controller.getImageResult(ImageSource.gallery);
+          },
           child: Text(
             LocaleKeys.shared_gallery.tr,
             style: TextStyle(color: Theme.of(context).secondaryHeaderColor),
           ),
-          onTap: () {
-            controller.getImageResult(ImageSource.gallery);
-          },
         ),
       );
 
@@ -170,10 +174,17 @@ class SignupPage extends GetView<SignupPageController> {
           top: ECommerceUtils.bodyVerticalPadding,
         ),
         child: TextFormField(
+          obscureText: !controller.showPassword.value,
           controller: controller.passwordController,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             label: Text(LocaleKeys.shared_password.tr),
+            suffixIcon: GestureDetector(
+              onTap: () {
+                controller.togglePasswordVisibility();
+              },
+              child: const Icon(Icons.remove_red_eye),
+            ),
           ),
           validator: (final value) => controller.validatePassword(value),
         ),
@@ -184,10 +195,17 @@ class SignupPage extends GetView<SignupPageController> {
           top: ECommerceUtils.bodyVerticalPadding,
         ),
         child: TextFormField(
+          obscureText: !controller.showPasswordRepeat.value,
           controller: controller.repeatPasswordController,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             label: Text(LocaleKeys.shared_repeat_password.tr),
+            suffixIcon: GestureDetector(
+              onTap: () {
+                controller.togglePasswordRepeatVisibility();
+              },
+              child: const Icon(Icons.remove_red_eye),
+            ),
           ),
           validator: (final value) =>
               controller.validateRepeatedPassword(value),

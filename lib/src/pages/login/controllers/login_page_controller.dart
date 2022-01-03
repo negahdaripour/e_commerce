@@ -7,6 +7,8 @@ import '../../shared/models/user_view_model.dart';
 import '../repositories/login_repository.dart';
 
 class LoginPageController extends GetxController {
+  RxBool loading = true.obs;
+  RxBool showPassword = false.obs;
   LoginRepository loginRepository = LoginRepository();
 
   TextEditingController usernameTextController = TextEditingController();
@@ -22,6 +24,7 @@ class LoginPageController extends GetxController {
   Future<void> getUsers() async {
     users.clear();
     users = await loginRepository.getUsers();
+    loading.value = false;
   }
 
   String? checkEmptyField(final String? text) {
@@ -75,6 +78,10 @@ class LoginPageController extends GetxController {
       await Get.offNamed(ECommerceRouteNames.userProductsPage,
           parameters: {'id': '${currentUser!.id}'});
     }
+  }
+
+  void togglePasswordVisibility() {
+    showPassword.value = !showPassword.value;
   }
 
   @override
