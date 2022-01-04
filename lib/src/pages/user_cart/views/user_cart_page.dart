@@ -173,6 +173,8 @@ class UserCartPage extends GetView<UserCartController> {
         children: [
           _productTotalPrice(productViewModel, context),
           Obx(() => NumberPicker(
+              minValue: 0,
+              maxValue: productViewModel.count,
               getValue: (final newValue) {
                 controller.editUserCart(productViewModel, newValue);
               },

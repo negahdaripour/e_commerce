@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:e_commerce/e_commerce.dart';
 import 'package:get/get.dart';
 
+import '../../../infrastructure/routes/e_commerce_route_names.dart';
 import '../../shared/models/cart_item_view_model.dart';
 import '../../shared/models/product_view_model.dart';
 import '../../shared/models/user_dto.dart';

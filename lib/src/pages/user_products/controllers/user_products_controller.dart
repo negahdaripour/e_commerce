@@ -16,6 +16,7 @@ class UserProductsController extends GetxController {
   RxBool isFavorite = false.obs;
   RxBool loading = true.obs;
   RxInt numberOfItemsInCart = 0.obs;
+  RxMap<int, int> productNumberPickerInitialValues = <int, int>{}.obs;
 
   UserProductsController({required final this.userId});
 
@@ -23,7 +24,7 @@ class UserProductsController extends GetxController {
   CurrentUserRepository currentUserRepository = CurrentUserRepository();
 
   RxList<ProductViewModel> products = <ProductViewModel>[].obs;
-  late UserViewModel currentUser;
+  Rxn<UserViewModel> currentUser = Rxn();
   RxMap<int, bool> productFavoriteStatus = <int, bool>{}.obs;
   RxList<CartItemViewModel> productCartStatus = <CartItemViewModel>[].obs;
 
@@ -35,19 +36,50 @@ class UserProductsController extends GetxController {
         products.add(product);
       }
     }
-    currentUser = await currentUserRepository.getUser(userId);
+    currentUser.value = await currentUserRepository.getUser(userId);
 
-    productCartStatus.value = currentUser.cart;
+    productCartStatus.value = currentUser.value!.cart;
+
+    fillProductNumberInCart();
     fillProductFavoriteMap();
-
     setNumberOfItemsInCart();
 
     loading.value = false;
   }
 
+  /*int getProductCountInCart(final int id) {
+    final CartItemViewModel cartItem = currentUser.value!.cart.firstWhere(
+        (final element) => element.productId == id,
+        orElse: () => CartItemViewModel(productId: 0, count: 0));
+    (cartItem.productId == 0)
+        ? numberPickerInitialValue.value = 0
+        : numberPickerInitialValue.value = cartItem.count;
+  }*/
+
+  void fillProductNumberInCart() {
+    for (final product in products) {
+      final CartItemViewModel cartItem = currentUser.value!.cart.firstWhere(
+          (final element) => element.productId == product.id,
+          orElse: () => CartItemViewModel(productId: 0, count: 0));
+      (cartItem.productId == 0)
+          ? productNumberPickerInitialValues[product.id] = 0
+          : productNumberPickerInitialValues[product.id] = cartItem.count;
+    }
+  }
+
+  void fillProductFavoriteMap() {
+    for (final product in products) {
+      if (currentUser.value!.favourites.contains(product.id)) {
+        productFavoriteStatus[product.id] = true;
+      } else {
+        productFavoriteStatus[product.id] = false;
+      }
+    }
+  }
+
   void setNumberOfItemsInCart() {
     numberOfItemsInCart.value = 0;
-    for (final element in productCartStatus) {
+    for (final element in currentUser.value!.cart) {
       numberOfItemsInCart.value += element.count;
     }
   }
@@ -65,65 +97,59 @@ class UserProductsController extends GetxController {
     });
 
     final UserDto userDto = UserDto(
-        picture: currentUser.picture,
-        firstname: currentUser.firstname,
-        lastname: currentUser.lastname,
-        username: currentUser.username,
-        password: currentUser.password,
-        address: currentUser.address,
-        isAdmin: currentUser.isAdmin,
+        picture: currentUser.value!.picture,
+        firstname: currentUser.value!.firstname,
+        lastname: currentUser.value!.lastname,
+        username: currentUser.value!.username,
+        password: currentUser.value!.password,
+        address: currentUser.value!.address,
+        isAdmin: currentUser.value!.isAdmin,
         favourites: favoriteProducts,
-        cart: currentUser.cart);
-    await currentUserRepository.editUser(userId, userDto);
+        cart: currentUser.value!.cart);
+
+    await editUser(user: userDto);
   }
 
   void editUserCart(final ProductViewModel product, final int newValue) async {
-    final CartItemViewModel cartItem = productCartStatus.firstWhere(
+    productNumberPickerInitialValues[product.id] = newValue;
+    final CartItemViewModel cartItem = currentUser.value!.cart.firstWhere(
         (final element) => element.productId == product.id,
         orElse: () => CartItemViewModel(productId: 0, count: 0));
     if (newValue == 0) {
-      productCartStatus.remove(cartItem);
+      currentUser.value!.cart.remove(cartItem);
     } else if (newValue > 0 && newValue <= product.count) {
       if (cartItem.productId != 0) {
-        productCartStatus
+        currentUser.value!.cart
           ..remove(cartItem)
           ..add(CartItemViewModel(productId: product.id, count: newValue));
       } else {
-        productCartStatus
+        currentUser.value!.cart
             .add(CartItemViewModel(productId: product.id, count: newValue));
       }
     }
 
+    currentUser.refresh();
+    await editUser();
+  }
+
+  Future<void> editUser({final UserDto? user}) async {
     final UserDto userDto = UserDto(
-        picture: currentUser.picture,
-        firstname: currentUser.firstname,
-        lastname: currentUser.lastname,
-        username: currentUser.username,
-        password: currentUser.password,
-        address: currentUser.address,
-        isAdmin: currentUser.isAdmin,
-        favourites: currentUser.favourites,
-        cart: productCartStatus);
+        picture: currentUser.value!.picture,
+        firstname: currentUser.value!.firstname,
+        lastname: currentUser.value!.lastname,
+        username: currentUser.value!.username,
+        password: currentUser.value!.password,
+        address: currentUser.value!.address,
+        isAdmin: currentUser.value!.isAdmin,
+        favourites: currentUser.value!.favourites,
+        cart: currentUser.value!.cart);
 
     setNumberOfItemsInCart();
-    await currentUserRepository.editUser(userId, userDto);
-  }
-
-  void fillProductFavoriteMap() {
-    for (final product in products) {
-      if (currentUser.favourites.contains(product.id)) {
-        productFavoriteStatus[product.id] = true;
-      } else {
-        productFavoriteStatus[product.id] = false;
-      }
+    if (user == null) {
+      await currentUserRepository.editUser(userId, userDto);
+    } else {
+      await currentUserRepository.editUser(userId, user);
     }
-  }
-
-  int getProductCountInCart(final int id) {
-    final CartItemViewModel cartItem = productCartStatus.firstWhere(
-        (final element) => element.productId == id,
-        orElse: () => CartItemViewModel(productId: 0, count: 0));
-    return (cartItem.productId == 0) ? 0 : cartItem.count;
   }
 
   void onProductPressed(final int id) async {

@@ -110,9 +110,10 @@ class CustomMaterialTheme {
           bodyText1: TextStyle(color: costumeGrey, fontWeight: FontWeight.w400),
         ),
         listTileTheme: ListTileThemeData(
-            textColor: fontColor,
-            tileColor: primaryColor[50],
-            style: ListTileStyle.list),
+          textColor: fontColor,
+          tileColor: primaryColor[50],
+          style: ListTileStyle.list,
+        ),
         progressIndicatorTheme: ProgressIndicatorThemeData(
           linearTrackColor: primaryColor,
           circularTrackColor: primaryColor,

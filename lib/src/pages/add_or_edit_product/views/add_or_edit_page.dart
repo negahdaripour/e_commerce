@@ -189,6 +189,8 @@ class AddOrEditPage<T extends BaseController> extends GetView<T> {
               child: SizedBox(
                 width: 350,
                 child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
                   itemCount: options.length,
                   itemBuilder: (final context, final index) {
                     final String option = options.elementAt(index);

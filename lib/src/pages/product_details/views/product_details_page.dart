@@ -143,6 +143,8 @@ class ProductDetailsPage extends GetView<ProductDetailController> {
         children: <Widget>[
           _productStock(context),
           Obx(() => NumberPicker(
+                maxValue: controller.product.value!.count,
+                minValue: 0,
                 getValue: (final newValue) {
                   controller.editUserCart(newValue);
                 },
