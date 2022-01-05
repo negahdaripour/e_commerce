@@ -147,6 +147,12 @@ class SearchController extends GetxController {
   }
 
   @override
+  void onClose() {
+    searchTextController.dispose();
+    super.onClose();
+  }
+
+  @override
   void onInit() async {
     super.onInit();
     await getUser(userId);

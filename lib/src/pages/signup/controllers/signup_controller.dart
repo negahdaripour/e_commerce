@@ -139,6 +139,17 @@ class SignupPageController extends GetxController {
   }
 
   @override
+  void onClose() {
+    firstnameController.dispose();
+    lastnameController.dispose();
+    usernameController.dispose();
+    passwordController.dispose();
+    repeatPasswordController.dispose();
+    addressController.dispose();
+    super.onClose();
+  }
+
+  @override
   void onInit() async {
     super.onInit();
     imagePicker = ImagePicker();

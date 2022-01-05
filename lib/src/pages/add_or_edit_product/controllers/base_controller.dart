@@ -102,6 +102,16 @@ abstract class BaseController extends GetxController {
   Future<void> modify();
 
   @override
+  void onClose() {
+    titleTextController.dispose();
+    countTextController.dispose();
+    descriptionTextController.dispose();
+    priceTextController.dispose();
+    tagsTextController.dispose();
+    super.onClose();
+  }
+
+  @override
   void onInit() async {
     super.onInit();
     imagePicker = ImagePicker();

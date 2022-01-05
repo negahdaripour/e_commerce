@@ -85,6 +85,13 @@ class LoginPageController extends GetxController {
   }
 
   @override
+  void onClose() {
+    usernameTextController.dispose();
+    passwordTextController.dispose();
+    super.onClose();
+  }
+
+  @override
   void onInit() async {
     super.onInit();
     await getUsers();
