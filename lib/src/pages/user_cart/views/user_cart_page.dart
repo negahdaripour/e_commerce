@@ -13,7 +13,9 @@ class UserCartPage extends GetView<UserCartController> {
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
-          actions: <Widget>[_shoppingCartIcon(context)],
+          actions: <Widget>[
+            _shoppingCartIcon(context),
+          ],
           title: Text(LocaleKeys.shared_cart.tr),
         ),
         body: Obx(
@@ -84,7 +86,7 @@ class UserCartPage extends GetView<UserCartController> {
           child: Padding(
         padding: EdgeInsets.all(ECommerceUtils.bodyVerticalPadding),
         child: Text(
-          'سبد خرید شما خالی است',
+          LocaleKeys.shared_cart_is_empty.tr,
           style: Theme.of(context).textTheme.bodyText1,
         ),
       ));
@@ -220,9 +222,11 @@ class UserCartPage extends GetView<UserCartController> {
 
   Widget _checkOut() => Align(
         child: ElevatedButton(
-            onPressed: () {
-              //TODO
-            },
+            onPressed: controller.productInCart.isNotEmpty
+                ? () {
+                    //TODO
+                  }
+                : null,
             child: Text(LocaleKeys.shared_check_out.tr)),
       );
 }

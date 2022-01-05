@@ -1,51 +1,34 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:e_commerce/src/infrastructure/routes/e_commerce_route_names.dart';
+import 'package:e_commerce/src/pages/search/repository/search_user_repository.dart';
+import 'package:e_commerce/src/pages/shared/models/cart_item_view_model.dart';
+import 'package:e_commerce/src/pages/shared/models/user_dto.dart';
+import 'package:e_commerce/src/pages/shared/models/user_view_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../../infrastructure/routes/e_commerce_route_names.dart';
-import '../../shared/models/cart_item_view_model.dart';
 import '../../shared/models/product_view_model.dart';
-import '../../shared/models/user_dto.dart';
-import '../../shared/models/user_view_model.dart';
-import '../repositories/current_user_repository.dart';
-import '../repositories/user_products_repository.dart';
+import '../repository/search_product_repository.dart';
 
-class UserProductsController extends GetxController {
+class SearchController extends GetxController {
   final int userId;
-  RxBool isFavorite = false.obs;
+
+  SearchProductRepository searchProductRepository = SearchProductRepository();
+  SearchUserRepository searchUserRepository = SearchUserRepository();
+
+  final TextEditingController searchTextController = TextEditingController();
+
   RxBool loading = true.obs;
-  RxInt numberOfItemsInCart = 0.obs;
+  Rxn<UserViewModel> currentUser = Rxn();
+  RxList<ProductViewModel> products = <ProductViewModel>[].obs;
+  RxMap<int, bool> productFavoriteStatus = <int, bool>{}.obs;
   RxMap<int, int> productNumberPickerInitialValues = <int, int>{}.obs;
 
-  UserProductsController({required final this.userId});
-
-  UserProductsRepository userProductsRepository = UserProductsRepository();
-  CurrentUserRepository currentUserRepository = CurrentUserRepository();
-
-  RxList<ProductViewModel> products = <ProductViewModel>[].obs;
-  Rxn<UserViewModel> currentUser = Rxn();
-  RxMap<int, bool> productFavoriteStatus = <int, bool>{}.obs;
-  RxList<CartItemViewModel> productCartStatus = <CartItemViewModel>[].obs;
-
-  Future<void> initialize() async {
-    final _products = await userProductsRepository.getProducts();
-    products.clear();
-    for (final product in _products) {
-      if (product.isActive) {
-        products.add(product);
-      }
-    }
-    currentUser.value = await currentUserRepository.getUser(userId);
-
-    productCartStatus.value = currentUser.value!.cart;
-
-    fillProductNumberInCart();
-    fillProductFavoriteMap();
-    setNumberOfItemsInCart();
-
-    loading.value = false;
-  }
+  SearchController({required final this.userId});
+  Uint8List stringToImage(final String base64String) =>
+      base64Decode(base64String);
 
   void fillProductNumberInCart() {
     for (final product in products) {
@@ -67,16 +50,6 @@ class UserProductsController extends GetxController {
       }
     }
   }
-
-  void setNumberOfItemsInCart() {
-    numberOfItemsInCart.value = 0;
-    for (final element in currentUser.value!.cart) {
-      numberOfItemsInCart.value += element.count;
-    }
-  }
-
-  Uint8List stringToImage(final String base64String) =>
-      base64Decode(base64String);
 
   void onProductFavoritePressed(final int id) async {
     productFavoriteStatus[id] = !productFavoriteStatus[id]!;
@@ -135,12 +108,29 @@ class UserProductsController extends GetxController {
         favourites: currentUser.value!.favourites,
         cart: currentUser.value!.cart);
 
-    setNumberOfItemsInCart();
     if (user == null) {
-      await currentUserRepository.editUser(userId, userDto);
+      await searchUserRepository.editUser(userId, userDto);
     } else {
-      await currentUserRepository.editUser(userId, user);
+      await searchUserRepository.editUser(userId, user);
     }
+  }
+
+  void onSearchFieldSubmitted(final String searchString) async {
+    loading.value = true;
+    await getUser(userId);
+    final List<ProductViewModel> _products =
+        await searchProductRepository.searchProducts(searchString);
+    products.clear();
+    for (final product in _products) {
+      if (product.isActive) {
+        products.add(product);
+      }
+    }
+
+    fillProductNumberInCart();
+    fillProductFavoriteMap();
+
+    loading.value = false;
   }
 
   void onProductPressed(final int id) async {
@@ -148,31 +138,18 @@ class UserProductsController extends GetxController {
         parameters: {'productId': '$id', 'userId': '$userId'});
     if (result == null) {
       loading.value = true;
-      await initialize();
+      onSearchFieldSubmitted(searchTextController.text);
     }
   }
 
-  void onShoppingCartPressed() async {
-    final result = await Get.toNamed(ECommerceRouteNames.userCartPage,
-        parameters: {'id': '$userId'});
-    if (result == null) {
-      loading.value = true;
-      await initialize();
-    }
-  }
-
-  void onSearchIconPressed() async {
-    final result = await Get.toNamed(ECommerceRouteNames.searchPage,
-        parameters: {'id': '$userId'});
-    if (result == null) {
-      loading.value = true;
-      await initialize();
-    }
+  Future<void> getUser(final int id) async {
+    currentUser.value = await searchUserRepository.getUser(id);
   }
 
   @override
   void onInit() async {
     super.onInit();
-    await initialize();
+    await getUser(userId);
+    loading.value = false;
   }
 }

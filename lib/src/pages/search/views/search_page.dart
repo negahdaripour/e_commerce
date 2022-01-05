@@ -6,85 +6,75 @@ import '../../../../generated/locales.g.dart';
 import '../../../infrastructure/utils/e_commerce_utils.dart';
 import '../../shared/models/product_view_model.dart';
 import '../../shared/widgets/tags.dart';
-import '../controllers/user_products_controller.dart';
+import '../controllers/search_controller.dart';
 
-class UserProductsPage extends GetView<UserProductsController> {
-  const UserProductsPage({final Key? key}) : super(key: key);
+class SearchPage extends GetView<SearchController> {
+  const SearchPage({final Key? key}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
-          actions: <Widget>[
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  onPressed: () {
-                    //TODO filter
-                  },
-                  icon: const Icon(Icons.filter_list_rounded),
+          title: Container(
+            width: double.infinity,
+            height: 40.0,
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColorLight,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Center(
+              child: TextFormField(
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColorLight)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColorLight)),
+                  iconColor: const Color(0xff442C2E),
+                  prefixIcon: IconButton(
+                    onPressed: () {
+                      controller.onSearchFieldSubmitted(
+                          controller.searchTextController.text);
+                    },
+                    icon: const Icon(Icons.search_rounded,
+                        color: Color(0xff442C2E)),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.cancel),
+                    onPressed: () {
+                      controller.searchTextController.clear();
+                    },
+                  ),
+                  hintText: LocaleKeys.shared_search_hint.tr,
                 ),
-                IconButton(
-                  padding: EdgeInsetsDirectional.only(
-                      start: ECommerceUtils.largePadding),
-                  constraints: const BoxConstraints(),
-                  onPressed: () {
-                    controller.onSearchIconPressed();
-                  },
-                  icon: const Icon(Icons.search_rounded),
-                ),
-                _shoppingCartIcon(context),
-              ],
-            )
-          ],
-          title: Text(LocaleKeys.shared_products.tr),
+                controller: controller.searchTextController,
+                onFieldSubmitted: (final searchString) {
+                  controller.onSearchFieldSubmitted(searchString);
+                },
+              ),
+            ),
+          ),
         ),
         body: Obx(
-          () => controller.loading.value ? _loading() : _products(),
-        ),
+            () => controller.loading.value ? _loading() : _products(context)),
       );
 
   Widget _loading() => const Center(child: CircularProgressIndicator());
 
-  Widget _shoppingCartIcon(final BuildContext context) => Obx(() => Stack(
-        alignment: const Alignment(0.6, -0.8),
-        children: <Widget>[
-          IconButton(
-            onPressed: () {
-              controller.onShoppingCartPressed();
-            },
-            icon: const Icon(Icons.shopping_cart_rounded),
+  Widget _products(final BuildContext context) => controller.products.isEmpty
+      ? Center(
+          child: Text(
+          LocaleKeys.shared_no_results_found.tr,
+          style: Theme.of(context).textTheme.bodyText1,
+        ))
+      : Padding(
+          padding: EdgeInsets.only(top: ECommerceUtils.bodyVerticalPadding),
+          child: ListView.builder(
+            itemCount: controller.products.length,
+            itemBuilder: (final context, final index) => _listTile(
+                context: context, productViewModel: controller.products[index]),
           ),
-          if (controller.numberOfItemsInCart.value != 0 &&
-              !controller.loading.value)
-            _numberOfItemsInCart(context),
-        ],
-      ));
-
-  Widget _numberOfItemsInCart(final BuildContext context) => Container(
-        width: 17.0,
-        height: 17.0,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Text(
-          '${controller.numberOfItemsInCart.value}',
-          style: const TextStyle(color: Colors.white),
-        ),
-      );
-
-  Widget _products() => Padding(
-        padding: EdgeInsets.only(top: ECommerceUtils.bodyVerticalPadding),
-        child: ListView.builder(
-          itemCount: controller.products.length,
-          itemBuilder: (final context, final index) => _listTile(
-              context: context, productViewModel: controller.products[index]),
-        ),
-      );
+        );
 
   Widget _listTile(
           {required final BuildContext context,
@@ -208,15 +198,17 @@ class UserProductsPage extends GetView<UserProductsController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           _productStock(productViewModel, context),
-          Obx(() => NumberPicker(
-                minValue: 0,
-                maxValue: productViewModel.count,
-                getValue: (final newValue) {
-                  controller.editUserCart(productViewModel, newValue);
-                },
-                initialValue: controller
-                    .productNumberPickerInitialValues[productViewModel.id]!,
-              )),
+          Obx(
+            () => NumberPicker(
+              minValue: 0,
+              maxValue: productViewModel.count,
+              getValue: (final newValue) {
+                controller.editUserCart(productViewModel, newValue);
+              },
+              initialValue: controller
+                  .productNumberPickerInitialValues[productViewModel.id]!,
+            ),
+          ),
         ],
       );
 

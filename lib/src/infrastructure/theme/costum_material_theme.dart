@@ -46,7 +46,7 @@ class CustomMaterialTheme {
         brightness: Brightness.light,
         primaryColor: primaryColor,
         primaryColorBrightness: Brightness.light,
-        primaryColorLight: primaryColor[400],
+        primaryColorLight: primaryColor[50],
         primaryColorDark: primaryColor[900],
         secondaryHeaderColor: secondaryColor,
         appBarTheme: AppBarTheme(

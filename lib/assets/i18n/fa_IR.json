@@ -53,7 +53,10 @@
 		"cart" : "سبد خرید",
 		"item_count" : "تعداد اقلام :",
 		"total_price" : "قیمت کل :",
-		"check_out" : "اتمام خرید"
+		"check_out" : "اتمام خرید",
+		"cart_is_empty": "سبد خرید شما خالی است",
+		"search_hint" : "جست و جو...",
+		"no_results_found" : "نتیجه ای یافت نشد"
 		
 	}
 }

@@ -69,6 +69,9 @@ class LocaleKeys {
   static const shared_item_count = 'shared_item_count';
   static const shared_total_price = 'shared_total_price';
   static const shared_check_out = 'shared_check_out';
+  static const shared_cart_is_empty = 'shared_cart_is_empty';
+  static const shared_search_hint = 'shared_search_hint';
+  static const shared_no_results_found = 'shared_no_results_found';
 }
 
 class Locales {
@@ -129,6 +132,9 @@ class Locales {
     'shared_item_count': 'Item Count :',
     'shared_total_price': 'Total Price :',
     'shared_check_out': 'Check Out',
+    'shared_cart_is_empty': 'your cart is empty',
+    'shared_search_hint': 'search...',
+    'shared_no_results_found': 'no results found',
   };
   static const fa_IR = {
     'shared_login': 'ورود',
@@ -186,5 +192,8 @@ class Locales {
     'shared_item_count': 'تعداد اقلام :',
     'shared_total_price': 'قیمت کل :',
     'shared_check_out': 'اتمام خرید',
+    'shared_cart_is_empty': 'سبد خرید شما خالی است',
+    'shared_search_hint': 'جست و جو...',
+    'shared_no_results_found': 'نتیجه ای یافت نشد',
   };
 }

@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/pages/search/bindings/search_binding.dart';
 import 'package:get/get.dart';
 
 import '../../pages/add_or_edit_product/bindings/add_product_binding.dart';
@@ -11,6 +12,7 @@ import '../../pages/login/bindings/login_page_binding.dart';
 import '../../pages/login/views/login_page.dart';
 import '../../pages/product_details/bindings/product_detail_binding.dart';
 import '../../pages/product_details/views/product_details_page.dart';
+import '../../pages/search/views/search_page.dart';
 import '../../pages/signup/bindings/signup_binding.dart';
 import '../../pages/signup/views/signup_page.dart';
 import '../../pages/splash/bindings/splash_page_binding.dart';
@@ -68,6 +70,11 @@ class ECommerceRoutePage {
       name: ECommerceRouteNames.userCartPage,
       page: () => const UserCartPage(),
       binding: UserCartBinding(),
+    ),
+    GetPage(
+      name: ECommerceRouteNames.searchPage,
+      page: () => const SearchPage(),
+      binding: SearchBinding(),
     ),
   ];
 }
