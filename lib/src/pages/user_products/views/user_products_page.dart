@@ -22,7 +22,7 @@ class UserProductsPage extends GetView<UserProductsController> {
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
                   onPressed: () {
-                    //TODO filter
+                    controller.onFilterIconPressed();
                   },
                   icon: const Icon(Icons.filter_list_rounded),
                 ),
@@ -80,9 +80,10 @@ class UserProductsPage extends GetView<UserProductsController> {
   Widget _products() => Padding(
         padding: EdgeInsets.only(top: ECommerceUtils.bodyVerticalPadding),
         child: ListView.builder(
-          itemCount: controller.products.length,
+          itemCount: controller.filteredProducts.length,
           itemBuilder: (final context, final index) => _listTile(
-              context: context, productViewModel: controller.products[index]),
+              context: context,
+              productViewModel: controller.filteredProducts[index]),
         ),
       );
 

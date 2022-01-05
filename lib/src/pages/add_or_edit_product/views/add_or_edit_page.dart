@@ -250,9 +250,9 @@ class AddOrEditPage<T extends BaseController> extends GetView<T> {
           onChanged: (final value) {
             if (value != null) {
               controller.inStock.value = value;
-              value
-                  ? controller.stock.value = LocaleKeys.shared_in_stock.tr
-                  : controller.stock.value = LocaleKeys.shared_not_in_stock.tr;
+              controller.stock.value = value
+                  ? LocaleKeys.shared_in_stock.tr
+                  : LocaleKeys.shared_not_in_stock.tr;
             }
           },
         ),
@@ -264,9 +264,9 @@ class AddOrEditPage<T extends BaseController> extends GetView<T> {
           value: controller.isActive.value,
           onChanged: (final value) {
             controller.isActive.value = value;
-            value
-                ? controller.active.value = LocaleKeys.shared_active.tr
-                : controller.active.value = LocaleKeys.shared_inactive.tr;
+            controller.active.value = value
+                ? LocaleKeys.shared_active.tr
+                : LocaleKeys.shared_inactive.tr;
           },
         ),
       );

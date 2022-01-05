@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:e_commerce/src/pages/shared/widgets/filter_dialog.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../infrastructure/routes/e_commerce_route_names.dart';
@@ -17,12 +19,15 @@ class UserProductsController extends GetxController {
   RxBool loading = true.obs;
   RxInt numberOfItemsInCart = 0.obs;
   RxMap<int, int> productNumberPickerInitialValues = <int, int>{}.obs;
+  Rxn<RangeValues> priceRange = Rxn();
+  RxBool inStockFilter = true.obs;
 
   UserProductsController({required final this.userId});
 
   UserProductsRepository userProductsRepository = UserProductsRepository();
   CurrentUserRepository currentUserRepository = CurrentUserRepository();
 
+  RxList<ProductViewModel> filteredProducts = <ProductViewModel>[].obs;
   RxList<ProductViewModel> products = <ProductViewModel>[].obs;
   Rxn<UserViewModel> currentUser = Rxn();
   RxMap<int, bool> productFavoriteStatus = <int, bool>{}.obs;
@@ -30,10 +35,11 @@ class UserProductsController extends GetxController {
 
   Future<void> initialize() async {
     final _products = await userProductsRepository.getProducts();
-    products.clear();
+    filteredProducts.clear();
     for (final product in _products) {
       if (product.isActive) {
         products.add(product);
+        filteredProducts.add(product);
       }
     }
     currentUser.value = await currentUserRepository.getUser(userId);
@@ -48,7 +54,7 @@ class UserProductsController extends GetxController {
   }
 
   void fillProductNumberInCart() {
-    for (final product in products) {
+    for (final product in filteredProducts) {
       final CartItemViewModel cartItem = currentUser.value!.cart.firstWhere(
           (final element) => element.productId == product.id,
           orElse: () => CartItemViewModel(productId: 0, count: 0));
@@ -59,7 +65,7 @@ class UserProductsController extends GetxController {
   }
 
   void fillProductFavoriteMap() {
-    for (final product in products) {
+    for (final product in filteredProducts) {
       if (currentUser.value!.favourites.contains(product.id)) {
         productFavoriteStatus[product.id] = true;
       } else {
@@ -168,6 +174,56 @@ class UserProductsController extends GetxController {
       loading.value = true;
       await initialize();
     }
+  }
+
+  void onFilterIconPressed() async {
+    final double _min = getMinPrice();
+    final double _max = getMaxPrice();
+    priceRange.value = RangeValues(_min, _max);
+
+    final result = await Get.dialog(
+      Obx(
+        () => FilterDialog(
+            initialValue: inStockFilter.value,
+            getValue: (final newValue) {
+              inStockFilter.value = newValue;
+            },
+            getRangeValues: (final newRangeValues) {
+              priceRange.value = newRangeValues;
+            },
+            min: _min,
+            rangeValues: priceRange.value!,
+            max: _max),
+      ),
+    );
+    if (result != null && result) {
+      loading.value = true;
+      applyFilters();
+    }
+  }
+
+  void applyFilters() {
+    loading.value = false;
+  }
+
+  double getMinPrice() {
+    double _min = double.infinity;
+    for (final product in filteredProducts) {
+      if (product.price < _min) {
+        _min = product.price.toDouble();
+      }
+    }
+    return _min;
+  }
+
+  double getMaxPrice() {
+    int _max = 0;
+    for (final product in filteredProducts) {
+      if (product.price > _max) {
+        _max = product.price;
+      }
+    }
+    return _max.toDouble();
   }
 
   @override

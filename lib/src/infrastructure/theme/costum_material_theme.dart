@@ -49,6 +49,7 @@ class CustomMaterialTheme {
         primaryColorLight: primaryColor[50],
         primaryColorDark: primaryColor[900],
         secondaryHeaderColor: secondaryColor,
+        primarySwatch: secondaryColor,
         appBarTheme: AppBarTheme(
           backgroundColor: const Color(0xFFfeeae6),
           iconTheme: const IconThemeData(color: fontColor),
@@ -147,6 +148,11 @@ class CustomMaterialTheme {
               return Colors.grey;
             }
           }),
+        ),
+        sliderTheme: const SliderThemeData(
+          trackHeight: 1.0,
+          activeTrackColor: secondaryColor,
+          thumbColor: secondaryColor,
         ),
       );
 }

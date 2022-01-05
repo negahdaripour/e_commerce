@@ -56,7 +56,9 @@
 		"check_out" : "اتمام خرید",
 		"cart_is_empty": "سبد خرید شما خالی است",
 		"search_hint" : "جست و جو...",
-		"no_results_found" : "نتیجه ای یافت نشد"
-		
+		"no_results_found" : "نتیجه ای یافت نشد",
+		"price_filter" : "فیلتر قیمت",
+		"products_in_stock" : "محصولات موجود",
+		"filter" : "فیلتر"
 	}
 }

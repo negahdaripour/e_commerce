@@ -72,6 +72,9 @@ class LocaleKeys {
   static const shared_cart_is_empty = 'shared_cart_is_empty';
   static const shared_search_hint = 'shared_search_hint';
   static const shared_no_results_found = 'shared_no_results_found';
+  static const shared_price_filter = 'shared_price_filter';
+  static const shared_products_in_stock = 'shared_products_in_stock';
+  static const shared_filter = 'shared_filter';
 }
 
 class Locales {
@@ -135,6 +138,9 @@ class Locales {
     'shared_cart_is_empty': 'your cart is empty',
     'shared_search_hint': 'search...',
     'shared_no_results_found': 'no results found',
+    'shared_price_filter': 'Price Filter',
+    'shared_products_in_stock': 'products in stock',
+    'shared_filter': 'filter',
   };
   static const fa_IR = {
     'shared_login': 'ورود',
@@ -195,5 +201,8 @@ class Locales {
     'shared_cart_is_empty': 'سبد خرید شما خالی است',
     'shared_search_hint': 'جست و جو...',
     'shared_no_results_found': 'نتیجه ای یافت نشد',
+    'shared_price_filter': 'فیلتر قیمت',
+    'shared_products_in_stock': 'محصولات موجود',
+    'shared_filter': 'فیلتر',
   };
 }
