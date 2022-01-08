@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'widgets/add_button.dart';
+import 'widgets/subtract_button.dart';
+
 class NumberPicker extends StatelessWidget {
   final void Function(int)? getValue;
   final int initialValue;
@@ -17,64 +20,16 @@ class NumberPicker extends StatelessWidget {
   Widget build(final BuildContext context) => Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          _add(),
+          _add(context),
           _amount(),
-          _subtract(),
+          _subtract(context),
         ],
       );
 
-  Widget _add() {
-    if (initialValue >= maxValue) {
-      return _disabledAdd();
-    } else {
-      return _enabledAdd();
-    }
-  }
-
-  Widget _disabledAdd() => Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: () {},
-        child: Container(
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            border: Border.all(
-              color: Colors.white10,
-            ),
-          ),
-          height: 25.0,
-          width: 25.0,
-          child: const Icon(
-            Icons.arrow_back_ios_rounded,
-            size: 18,
-            color: Colors.grey,
-          ),
-        ),
-      ));
-
-  Widget _enabledAdd() => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: InkWell(
-          onTap: () {
-            getValue?.call(initialValue + 1);
-          },
-          child: Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                border: Border.all(
-                  color: Colors.black12,
-                )),
-            height: 25.0,
-            width: 25.0,
-            child: const Icon(
-              Icons.arrow_back_ios_rounded,
-              size: 18,
-              color: Color(0xffff6a11),
-            ),
-          ),
-        ),
+  Widget _add(final BuildContext context) => AddButton(
+        initialValue: initialValue,
+        getValue: getValue,
+        isEnabled: initialValue < maxValue,
       );
 
   Widget _amount() {
@@ -95,59 +50,8 @@ class NumberPicker extends StatelessWidget {
     );
   }
 
-  Widget _subtract() {
-    if (initialValue <= minValue) {
-      return _disabledSubtract();
-    } else {
-      return _enabledSubtract();
-    }
-  }
-
-  Widget _disabledSubtract() => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: InkWell(
-          onTap: () {},
-          child: Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              border: Border.all(
-                color: Colors.white10,
-              ),
-            ),
-            height: 25.0,
-            width: 25.0,
-            child: const Icon(
-              Icons.arrow_forward_ios_rounded,
-              size: 18,
-              color: Colors.grey,
-            ),
-          ),
-        ),
-      );
-
-  Widget _enabledSubtract() => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: InkWell(
-          onTap: () {
-            getValue?.call(initialValue - 1);
-          },
-          child: Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              border: Border.all(
-                color: Colors.black12,
-              ),
-            ),
-            height: 25.0,
-            width: 25.0,
-            child: const Icon(
-              Icons.arrow_forward_ios_rounded,
-              size: 18,
-              color: Color(0xffff6a11),
-            ),
-          ),
-        ),
-      );
+  Widget _subtract(final BuildContext context) => SubtractButton(
+      getValue: getValue,
+      initialValue: initialValue,
+      isEnabled: initialValue > minValue);
 }
