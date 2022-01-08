@@ -14,7 +14,10 @@ class NumberPicker extends StatelessWidget {
       required final this.maxValue,
       required final this.minValue,
       final Key? key})
-      : super(key: key);
+      : assert(minValue < maxValue, 'minValue has to be smaller than maxValue'),
+        assert(initialValue >= minValue && initialValue <= maxValue,
+            'initialValue has to be between minValue and maxvalue'),
+        super(key: key);
 
   @override
   Widget build(final BuildContext context) => Row(
