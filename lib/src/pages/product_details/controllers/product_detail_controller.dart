@@ -121,6 +121,15 @@ class ProductDetailController extends GetxController {
     }
   }
 
+  void onSearchIconPressed() async {
+    final result = await Get.toNamed(ECommerceRouteNames.userSearchPage,
+        parameters: {'id': '$userId'});
+    if (result == null) {
+      loading.value = true;
+      await initialize();
+    }
+  }
+
   @override
   void onInit() async {
     super.onInit();

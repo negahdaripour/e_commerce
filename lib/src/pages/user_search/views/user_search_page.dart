@@ -6,10 +6,10 @@ import '../../../../generated/locales.g.dart';
 import '../../../infrastructure/utils/e_commerce_utils.dart';
 import '../../shared/models/product_view_model.dart';
 import '../../shared/widgets/tags.dart';
-import '../controllers/search_controller.dart';
+import '../controllers/user_search_controller.dart';
 
-class SearchPage extends GetView<SearchController> {
-  const SearchPage({final Key? key}) : super(key: key);
+class UserSearchPage extends GetView<UserSearchController> {
+  const UserSearchPage({final Key? key}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) => Scaffold(

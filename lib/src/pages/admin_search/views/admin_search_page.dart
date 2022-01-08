@@ -3,54 +3,78 @@ import 'package:get/get.dart';
 
 import '../../../../generated/locales.g.dart';
 import '../../../infrastructure/utils/e_commerce_utils.dart';
+import '../../admin_products/widgets/product_delete_dialog.dart';
 import '../../shared/models/product_view_model.dart';
 import '../../shared/widgets/tags.dart';
-import '../controllers/admin_products_page_controller.dart';
-import '../widgets/product_delete_dialog.dart';
+import '../controllers/admin_search_controller.dart';
 
-class AdminProductsPage extends GetView<AdminProductsController> {
-  const AdminProductsPage({final Key? key}) : super(key: key);
+class AdminSearchPage extends GetView<AdminSearchController> {
+  const AdminSearchPage({final Key? key}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
-          actions: <Widget>[
-            IconButton(
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(),
-              onPressed: () {
-                controller.onFilterIconPressed();
-              },
-              icon: const Icon(Icons.filter_list_rounded),
+          title: Container(
+            width: double.infinity,
+            height: 40.0,
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColorLight,
+              borderRadius: BorderRadius.circular(4),
             ),
-            IconButton(
-              padding: EdgeInsetsDirectional.only(
-                  end: ECommerceUtils.largePadding,
-                  start: ECommerceUtils.largePadding),
-              constraints: const BoxConstraints(),
-              onPressed: () {
-                controller.onSearchIconPressed();
-              },
-              icon: const Icon(Icons.search_rounded),
+            child: Center(
+              child: TextFormField(
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColorLight)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColorLight)),
+                  iconColor: const Color(0xff442C2E),
+                  prefixIcon: IconButton(
+                    onPressed: () {
+                      controller.onSearchFieldSubmitted(
+                          controller.searchTextController.text);
+                    },
+                    icon: const Icon(Icons.search_rounded,
+                        color: Color(0xff442C2E)),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.cancel),
+                    onPressed: () {
+                      controller.searchTextController.clear();
+                    },
+                  ),
+                  hintText: LocaleKeys.shared_search_hint.tr,
+                ),
+                controller: controller.searchTextController,
+                onFieldSubmitted: (final searchString) {
+                  controller.onSearchFieldSubmitted(searchString);
+                },
+              ),
             ),
-          ],
-          title: Text(LocaleKeys.shared_products.tr),
+          ),
         ),
-        body: Obx(() => controller.loading.value ? _loading() : _products()),
-        floatingActionButton: _floatingActionButton(),
+        body: Obx(
+            () => controller.loading.value ? _loading() : _products(context)),
       );
 
   Widget _loading() => const Center(child: CircularProgressIndicator());
 
-  Widget _products() => Padding(
-        padding: EdgeInsets.only(top: ECommerceUtils.bodyVerticalPadding),
-        child: ListView.builder(
-          itemBuilder: (final context, final index) => _listTile(
-              context: context,
-              productViewModel: controller.filteredProducts[index]),
-          itemCount: controller.filteredProducts.length,
-        ),
-      );
+  Widget _products(final BuildContext context) => controller.products.isEmpty
+      ? Center(
+          child: Text(
+          LocaleKeys.shared_no_results_found.tr,
+          style: Theme.of(context).textTheme.bodyText1,
+        ))
+      : Padding(
+          padding: EdgeInsets.only(top: ECommerceUtils.bodyVerticalPadding),
+          child: ListView.builder(
+            itemCount: controller.products.length,
+            itemBuilder: (final context, final index) => _listTile(
+                context: context, productViewModel: controller.products[index]),
+          ),
+        );
 
   Widget _listTile(
           {required final BuildContext context,
@@ -61,7 +85,7 @@ class AdminProductsPage extends GetView<AdminProductsController> {
         child: InkWell(
           splashColor: Theme.of(context).primaryColor.withAlpha(30),
           onTap: () {
-            controller.onProductPressed(productViewModel);
+            controller.onProductPressed(productViewModel.id);
           },
           child: Card(
             child: Column(
@@ -183,12 +207,5 @@ class AdminProductsPage extends GetView<AdminProductsController> {
               ));
             },
             child: Text(LocaleKeys.shared_delete.tr)),
-      );
-
-  Widget _floatingActionButton() => FloatingActionButton(
-        onPressed: () {
-          controller.onAddPressed();
-        },
-        child: const Icon(Icons.add),
       );
 }

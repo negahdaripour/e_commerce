@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:e_commerce/src/pages/shared/widgets/filter_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +9,7 @@ import '../../shared/models/cart_item_view_model.dart';
 import '../../shared/models/product_view_model.dart';
 import '../../shared/models/user_dto.dart';
 import '../../shared/models/user_view_model.dart';
+import '../../shared/widgets/filter_dialog.dart';
 import '../repositories/current_user_repository.dart';
 import '../repositories/user_products_repository.dart';
 
@@ -20,6 +20,8 @@ class UserProductsController extends GetxController {
   RxInt numberOfItemsInCart = 0.obs;
   RxMap<int, int> productNumberPickerInitialValues = <int, int>{}.obs;
   Rxn<RangeValues> priceRange = Rxn();
+  Rxn<double> priceMin = Rxn();
+  Rxn<double> priceMax = Rxn();
   RxBool inStockFilter = true.obs;
 
   UserProductsController({required final this.userId});
@@ -35,12 +37,15 @@ class UserProductsController extends GetxController {
 
   Future<void> initialize() async {
     final _products = await userProductsRepository.getProducts();
-    filteredProducts.clear();
+
     for (final product in _products) {
       if (product.isActive) {
         products.add(product);
-        filteredProducts.add(product);
       }
+    }
+
+    if (filteredProducts.isEmpty) {
+      filteredProducts.addAll(products);
     }
     currentUser.value = await currentUserRepository.getUser(userId);
 
@@ -50,7 +55,31 @@ class UserProductsController extends GetxController {
     fillProductFavoriteMap();
     setNumberOfItemsInCart();
 
+    priceMin.value = getMinPrice();
+    priceMax.value = getMaxPrice();
+    priceRange.value = RangeValues(priceMin.value!, priceMax.value!);
+
     loading.value = false;
+  }
+
+  double getMinPrice() {
+    double _min = double.infinity;
+    for (final product in products) {
+      if (product.price < _min) {
+        _min = product.price.toDouble();
+      }
+    }
+    return _min;
+  }
+
+  double getMaxPrice() {
+    int _max = 0;
+    for (final product in products) {
+      if (product.price > _max) {
+        _max = product.price;
+      }
+    }
+    return _max.toDouble();
   }
 
   void fillProductNumberInCart() {
@@ -58,9 +87,8 @@ class UserProductsController extends GetxController {
       final CartItemViewModel cartItem = currentUser.value!.cart.firstWhere(
           (final element) => element.productId == product.id,
           orElse: () => CartItemViewModel(productId: 0, count: 0));
-      (cartItem.productId == 0)
-          ? productNumberPickerInitialValues[product.id] = 0
-          : productNumberPickerInitialValues[product.id] = cartItem.count;
+      productNumberPickerInitialValues[product.id] =
+          (cartItem.productId == 0) ? 0 : cartItem.count;
     }
   }
 
@@ -168,7 +196,7 @@ class UserProductsController extends GetxController {
   }
 
   void onSearchIconPressed() async {
-    final result = await Get.toNamed(ECommerceRouteNames.searchPage,
+    final result = await Get.toNamed(ECommerceRouteNames.userSearchPage,
         parameters: {'id': '$userId'});
     if (result == null) {
       loading.value = true;
@@ -177,10 +205,6 @@ class UserProductsController extends GetxController {
   }
 
   void onFilterIconPressed() async {
-    final double _min = getMinPrice();
-    final double _max = getMaxPrice();
-    priceRange.value = RangeValues(_min, _max);
-
     final result = await Get.dialog(
       Obx(
         () => FilterDialog(
@@ -191,9 +215,9 @@ class UserProductsController extends GetxController {
             getRangeValues: (final newRangeValues) {
               priceRange.value = newRangeValues;
             },
-            min: _min,
+            min: priceMin.value!,
             rangeValues: priceRange.value!,
-            max: _max),
+            max: priceMax.value!),
       ),
     );
     if (result != null && result) {
@@ -203,27 +227,31 @@ class UserProductsController extends GetxController {
   }
 
   void applyFilters() {
+    filteredProducts.clear();
+    filteredProducts.addAll(products);
+
+    applyPriceFilter();
+    applyStockFilter();
     loading.value = false;
   }
 
-  double getMinPrice() {
-    double _min = double.infinity;
-    for (final product in filteredProducts) {
-      if (product.price < _min) {
-        _min = product.price.toDouble();
+  void applyPriceFilter() {
+    for (final product in products) {
+      if (product.price < priceRange.value!.start ||
+          product.price > priceRange.value!.end) {
+        filteredProducts.remove(product);
       }
     }
-    return _min;
   }
 
-  double getMaxPrice() {
-    int _max = 0;
-    for (final product in filteredProducts) {
-      if (product.price > _max) {
-        _max = product.price;
+  void applyStockFilter() {
+    if (inStockFilter.value) {
+      for (final product in products) {
+        if (filteredProducts.contains(product) && !product.inStock) {
+          filteredProducts.remove(product);
+        }
       }
     }
-    return _max.toDouble();
   }
 
   @override

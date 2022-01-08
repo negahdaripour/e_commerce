@@ -9,5 +9,6 @@ class ECommerceRouteNames {
   static const String userProductsPage = '/e_commerce_user_products_page';
   static const String productDetailPage = '/e_commerce_product_detail_page';
   static const String userCartPage = '/e_commerce_user_cart_page';
-  static const String searchPage = '/e_commerce_search_page';
+  static const String userSearchPage = '/e_commerce_search_page';
+  static const String adminSearchPage = '/e_commerce_admin_search_page';
 }

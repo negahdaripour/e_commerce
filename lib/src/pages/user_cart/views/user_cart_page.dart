@@ -14,6 +14,16 @@ class UserCartPage extends GetView<UserCartController> {
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
           actions: <Widget>[
+            IconButton(
+              padding: EdgeInsetsDirectional.only(
+                  end: ECommerceUtils.largePadding,
+                  start: ECommerceUtils.largePadding),
+              constraints: const BoxConstraints(),
+              onPressed: () {
+                controller.onSearchIconPressed();
+              },
+              icon: const Icon(Icons.search_rounded),
+            ),
             _shoppingCartIcon(context),
           ],
           title: Text(LocaleKeys.shared_cart.tr),

@@ -13,7 +13,18 @@ class ProductDetailsPage extends GetView<ProductDetailController> {
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
-          actions: <Widget>[_shoppingCartIcon(context)],
+          actions: <Widget>[
+            IconButton(
+              padding: EdgeInsetsDirectional.only(
+                  start: ECommerceUtils.largePadding),
+              constraints: const BoxConstraints(),
+              onPressed: () {
+                controller.onSearchIconPressed();
+              },
+              icon: const Icon(Icons.search_rounded),
+            ),
+            _shoppingCartIcon(context)
+          ],
           title: Text(LocaleKeys.shared_product_detail.tr),
         ),
         body: Obx(

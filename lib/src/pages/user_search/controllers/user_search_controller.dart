@@ -1,18 +1,18 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:e_commerce/src/infrastructure/routes/e_commerce_route_names.dart';
-import 'package:e_commerce/src/pages/search/repository/search_user_repository.dart';
-import 'package:e_commerce/src/pages/shared/models/cart_item_view_model.dart';
-import 'package:e_commerce/src/pages/shared/models/user_dto.dart';
-import 'package:e_commerce/src/pages/shared/models/user_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../../../infrastructure/routes/e_commerce_route_names.dart';
+import '../../shared/models/cart_item_view_model.dart';
 import '../../shared/models/product_view_model.dart';
+import '../../shared/models/user_dto.dart';
+import '../../shared/models/user_view_model.dart';
 import '../repository/search_product_repository.dart';
+import '../repository/search_user_repository.dart';
 
-class SearchController extends GetxController {
+class UserSearchController extends GetxController {
   final int userId;
 
   SearchProductRepository searchProductRepository = SearchProductRepository();
@@ -26,7 +26,8 @@ class SearchController extends GetxController {
   RxMap<int, bool> productFavoriteStatus = <int, bool>{}.obs;
   RxMap<int, int> productNumberPickerInitialValues = <int, int>{}.obs;
 
-  SearchController({required final this.userId});
+  UserSearchController({required final this.userId});
+
   Uint8List stringToImage(final String base64String) =>
       base64Decode(base64String);
 

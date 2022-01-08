@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 
-import '../controllers/search_controller.dart';
+import '../controllers/user_search_controller.dart';
 
-class SearchBinding extends Bindings {
+class UserSearchBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => SearchController(
+    Get.lazyPut(() => UserSearchController(
         userId: int.tryParse(Get.parameters['id'] ?? '') ?? 0));
   }
 }

@@ -136,7 +136,7 @@ class Locales {
     'shared_total_price': 'Total Price :',
     'shared_check_out': 'Check Out',
     'shared_cart_is_empty': 'your cart is empty',
-    'shared_search_hint': 'search...',
+    'shared_search_hint': 'user_search...',
     'shared_no_results_found': 'no results found',
     'shared_price_filter': 'Price Filter',
     'shared_products_in_stock': 'products in stock',

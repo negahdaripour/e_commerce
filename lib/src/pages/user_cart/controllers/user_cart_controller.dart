@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:get/get.dart';
 
+import '../../../infrastructure/routes/e_commerce_route_names.dart';
 import '../../shared/models/cart_item_view_model.dart';
 import '../../shared/models/product_view_model.dart';
 import '../../shared/models/user_dto.dart';
@@ -32,6 +33,9 @@ class UserCartController extends GetxController {
     user = await userCartRepository.getUser(userId);
     final List<ProductViewModel> _allProducts =
         await productCartRepository.getProducts();
+
+    productInCart.clear();
+    cartProductsAndCount.clear();
     for (final product in _allProducts) {
       for (final item in user.cart) {
         if (item.productId == product.id) {
@@ -43,6 +47,22 @@ class UserCartController extends GetxController {
 
     setNumberOfItemsInCart();
     loading.value = false;
+  }
+
+  void setNumberOfItemsInCart() {
+    numberOfItemsInCart.value = 0;
+    for (final element in user.cart) {
+      numberOfItemsInCart.value += element.count;
+    }
+  }
+
+  void onSearchIconPressed() async {
+    final result = await Get.toNamed(ECommerceRouteNames.userSearchPage,
+        parameters: {'id': '$userId'});
+    if (result == null) {
+      loading.value = true;
+      await initialize();
+    }
   }
 
   int calculateProductTotalPrice(final ProductViewModel productViewModel) =>
@@ -83,13 +103,6 @@ class UserCartController extends GetxController {
 
     setNumberOfItemsInCart();
     await userCartRepository.editUser(userId, userDto);
-  }
-
-  void setNumberOfItemsInCart() {
-    numberOfItemsInCart.value = 0;
-    for (final element in user.cart) {
-      numberOfItemsInCart.value += element.count;
-    }
   }
 
   int getProductsCountInCart() {
