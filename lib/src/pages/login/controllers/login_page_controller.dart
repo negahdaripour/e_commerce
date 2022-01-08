@@ -9,6 +9,7 @@ import '../repositories/login_repository.dart';
 class LoginPageController extends GetxController {
   RxBool loading = true.obs;
   RxBool showPassword = false.obs;
+  RxString language = 'english'.obs;
   LoginRepository loginRepository = LoginRepository();
 
   TextEditingController usernameTextController = TextEditingController();

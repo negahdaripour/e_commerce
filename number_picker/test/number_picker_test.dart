@@ -54,7 +54,7 @@ void main() {
     ));
 
     final addFinder =
-        find.widgetWithIcon(InkWell, Icons.arrow_back_ios_rounded);
+        find.widgetWithIcon(InkWell, Icons.arrow_forward_ios_rounded);
     expect(addFinder, findsOneWidget);
 
     await tester.tap(addFinder);
@@ -90,7 +90,7 @@ void main() {
     ));
 
     final subtractFinder =
-        find.widgetWithIcon(InkWell, Icons.arrow_forward_ios_rounded);
+        find.widgetWithIcon(InkWell, Icons.arrow_back_ios_rounded);
     expect(subtractFinder, findsOneWidget);
 
     await tester.tap(subtractFinder);
@@ -125,7 +125,7 @@ void main() {
 
   testWidgets('initialValue range check', (final tester) async {
     int initialValue = 18;
-    const int maxValue = 10;
+    const int maxValue = 0;
     const int minValue = 0;
     void getValue(final int newValue) {
       initialValue = newValue;

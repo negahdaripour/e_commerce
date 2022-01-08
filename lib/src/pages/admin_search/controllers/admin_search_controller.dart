@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:e_commerce/e_commerce.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../../../infrastructure/routes/e_commerce_route_names.dart';
 import '../../shared/models/product_view_model.dart';
 import '../repositories/search_product_repository.dart';
 
@@ -49,8 +49,9 @@ class AdminSearchController extends GetxController {
 
   Future<void> deleteProduct(final ProductViewModel productViewModel) async {
     await searchProductRepository.deleteUProduct(productViewModel.id);
-    products.removeWhere((final product) => product.id == productViewModel.id);
-    products.refresh();
+    products
+      ..removeWhere((final product) => product.id == productViewModel.id)
+      ..refresh();
   }
 
   @override

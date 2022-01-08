@@ -14,16 +14,7 @@ class UserCartPage extends GetView<UserCartController> {
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
           actions: <Widget>[
-            IconButton(
-              padding: EdgeInsetsDirectional.only(
-                  end: ECommerceUtils.largePadding,
-                  start: ECommerceUtils.largePadding),
-              constraints: const BoxConstraints(),
-              onPressed: () {
-                controller.onSearchIconPressed();
-              },
-              icon: const Icon(Icons.search_rounded),
-            ),
+            _search(),
             _shoppingCartIcon(context),
           ],
           title: Text(LocaleKeys.shared_cart.tr),
@@ -31,6 +22,17 @@ class UserCartPage extends GetView<UserCartController> {
         body: Obx(
           () => controller.loading.value ? _loading() : _shoppingCart(context),
         ),
+      );
+
+  Widget _search() => IconButton(
+        padding: EdgeInsetsDirectional.only(
+            end: ECommerceUtils.largePadding,
+            start: ECommerceUtils.largePadding),
+        constraints: const BoxConstraints(),
+        onPressed: () {
+          controller.onSearchIconPressed();
+        },
+        icon: const Icon(Icons.search_rounded),
       );
 
   Widget _loading() => const Center(child: CircularProgressIndicator());
@@ -57,7 +59,8 @@ class UserCartPage extends GetView<UserCartController> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius:
+              BorderRadius.circular(ECommerceUtils.cartItemCountBorderRadius),
         ),
         child: Text(
           '${controller.numberOfItemsInCart.value}',

@@ -87,8 +87,12 @@ class UserProductsController extends GetxController {
       final CartItemViewModel cartItem = currentUser.value!.cart.firstWhere(
           (final element) => element.productId == product.id,
           orElse: () => CartItemViewModel(productId: 0, count: 0));
-      productNumberPickerInitialValues[product.id] =
-          (cartItem.productId == 0) ? 0 : cartItem.count;
+      if (product.inStock) {
+        productNumberPickerInitialValues[product.id] =
+            (cartItem.productId == 0) ? 0 : cartItem.count;
+      } else {
+        productNumberPickerInitialValues[product.id] = 0;
+      }
     }
   }
 
@@ -227,8 +231,9 @@ class UserProductsController extends GetxController {
   }
 
   void applyFilters() {
-    filteredProducts.clear();
-    filteredProducts.addAll(products);
+    filteredProducts
+      ..clear()
+      ..addAll(products);
 
     applyPriceFilter();
     applyStockFilter();

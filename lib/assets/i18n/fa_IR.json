@@ -59,6 +59,7 @@
 		"no_results_found" : "نتیجه ای یافت نشد",
 		"price_filter" : "فیلتر قیمت",
 		"products_in_stock" : "محصولات موجود",
-		"filter" : "فیلتر"
+		"filter" : "فیلتر",
+		"switch_language" : "تغییر زبان"
 	}
 }

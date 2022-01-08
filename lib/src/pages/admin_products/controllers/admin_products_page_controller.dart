@@ -61,8 +61,8 @@ class AdminProductsController extends GetxController {
   Future<void> deleteProduct(final ProductViewModel productViewModel) async {
     await adminProductsRepository.deleteUProduct(productViewModel.id);
     filteredProducts
-        .removeWhere((final product) => product.id == productViewModel.id);
-    filteredProducts.refresh();
+      ..removeWhere((final product) => product.id == productViewModel.id)
+      ..refresh();
   }
 
   Future<void> refreshProduct() async {
@@ -133,8 +133,9 @@ class AdminProductsController extends GetxController {
   }
 
   void applyFilters() {
-    filteredProducts.clear();
-    filteredProducts.addAll(products);
+    filteredProducts
+      ..clear()
+      ..addAll(products);
 
     applyPriceFilter();
     applyStockFilter();

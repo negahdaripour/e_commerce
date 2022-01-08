@@ -15,24 +15,8 @@ class AdminProductsPage extends GetView<AdminProductsController> {
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
           actions: <Widget>[
-            IconButton(
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(),
-              onPressed: () {
-                controller.onFilterIconPressed();
-              },
-              icon: const Icon(Icons.filter_list_rounded),
-            ),
-            IconButton(
-              padding: EdgeInsetsDirectional.only(
-                  end: ECommerceUtils.largePadding,
-                  start: ECommerceUtils.largePadding),
-              constraints: const BoxConstraints(),
-              onPressed: () {
-                controller.onSearchIconPressed();
-              },
-              icon: const Icon(Icons.search_rounded),
-            ),
+            _filter(),
+            _search(),
           ],
           title: Text(LocaleKeys.shared_products.tr),
         ),
@@ -40,21 +24,39 @@ class AdminProductsPage extends GetView<AdminProductsController> {
         floatingActionButton: _floatingActionButton(),
       );
 
+  Widget _filter() => IconButton(
+        padding: EdgeInsets.zero,
+        constraints: const BoxConstraints(),
+        onPressed: () {
+          controller.onFilterIconPressed();
+        },
+        icon: const Icon(Icons.filter_list_rounded),
+      );
+
+  Widget _search() => IconButton(
+        padding: EdgeInsetsDirectional.only(
+            end: ECommerceUtils.largePadding,
+            start: ECommerceUtils.largePadding),
+        constraints: const BoxConstraints(),
+        onPressed: () {
+          controller.onSearchIconPressed();
+        },
+        icon: const Icon(Icons.search_rounded),
+      );
+
   Widget _loading() => const Center(child: CircularProgressIndicator());
 
   Widget _products() => Padding(
         padding: EdgeInsets.only(top: ECommerceUtils.bodyVerticalPadding),
         child: ListView.builder(
-          itemBuilder: (final context, final index) => _listTile(
-              context: context,
-              productViewModel: controller.filteredProducts[index]),
+          itemBuilder: (final context, final index) =>
+              _listTile(context, controller.filteredProducts[index]),
           itemCount: controller.filteredProducts.length,
         ),
       );
 
-  Widget _listTile(
-          {required final BuildContext context,
-          required final ProductViewModel productViewModel}) =>
+  Widget _listTile(final BuildContext context,
+          final ProductViewModel productViewModel) =>
       Padding(
         padding: EdgeInsets.symmetric(
             horizontal: ECommerceUtils.bodyHorizontalPadding),

@@ -18,23 +18,8 @@ class UserProductsPage extends GetView<UserProductsController> {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                IconButton(
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  onPressed: () {
-                    controller.onFilterIconPressed();
-                  },
-                  icon: const Icon(Icons.filter_list_rounded),
-                ),
-                IconButton(
-                  padding: EdgeInsetsDirectional.only(
-                      start: ECommerceUtils.largePadding),
-                  constraints: const BoxConstraints(),
-                  onPressed: () {
-                    controller.onSearchIconPressed();
-                  },
-                  icon: const Icon(Icons.search_rounded),
-                ),
+                _filter(),
+                _search(),
                 _shoppingCartIcon(context),
               ],
             )
@@ -44,6 +29,24 @@ class UserProductsPage extends GetView<UserProductsController> {
         body: Obx(
           () => controller.loading.value ? _loading() : _products(),
         ),
+      );
+
+  Widget _filter() => IconButton(
+        padding: EdgeInsets.zero,
+        constraints: const BoxConstraints(),
+        onPressed: () {
+          controller.onFilterIconPressed();
+        },
+        icon: const Icon(Icons.filter_list_rounded),
+      );
+
+  Widget _search() => IconButton(
+        padding: EdgeInsetsDirectional.only(start: ECommerceUtils.largePadding),
+        constraints: const BoxConstraints(),
+        onPressed: () {
+          controller.onSearchIconPressed();
+        },
+        icon: const Icon(Icons.search_rounded),
       );
 
   Widget _loading() => const Center(child: CircularProgressIndicator());
@@ -69,7 +72,8 @@ class UserProductsPage extends GetView<UserProductsController> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius:
+              BorderRadius.circular(ECommerceUtils.cartItemCountBorderRadius),
         ),
         child: Text(
           '${controller.numberOfItemsInCart.value}',

@@ -14,49 +14,52 @@ class UserSearchPage extends GetView<UserSearchController> {
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Container(
-            width: double.infinity,
-            height: 40.0,
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColorLight,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Center(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Theme.of(context).primaryColorLight)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Theme.of(context).primaryColorLight)),
-                  iconColor: const Color(0xff442C2E),
-                  prefixIcon: IconButton(
-                    onPressed: () {
-                      controller.onSearchFieldSubmitted(
-                          controller.searchTextController.text);
-                    },
-                    icon: const Icon(Icons.search_rounded,
-                        color: Color(0xff442C2E)),
-                  ),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.cancel),
-                    onPressed: () {
-                      controller.searchTextController.clear();
-                    },
-                  ),
-                  hintText: LocaleKeys.shared_search_hint.tr,
-                ),
-                controller: controller.searchTextController,
-                onFieldSubmitted: (final searchString) {
-                  controller.onSearchFieldSubmitted(searchString);
-                },
-              ),
-            ),
-          ),
+          title: _searchBar(context),
         ),
         body: Obx(
             () => controller.loading.value ? _loading() : _products(context)),
+      );
+
+  Widget _searchBar(final BuildContext context) => Container(
+        width: double.infinity,
+        height: 40.0,
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColorLight,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Center(
+          child: _searchInputField(context),
+        ),
+      );
+
+  Widget _searchInputField(final BuildContext context) => TextFormField(
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(color: Theme.of(context).primaryColorLight)),
+          focusedBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(color: Theme.of(context).primaryColorLight)),
+          iconColor: const Color(0xff442C2E),
+          prefixIcon: IconButton(
+            onPressed: () {
+              controller
+                  .onSearchFieldSubmitted(controller.searchTextController.text);
+            },
+            icon: const Icon(Icons.search_rounded),
+          ),
+          suffixIcon: IconButton(
+            icon: const Icon(Icons.cancel),
+            onPressed: () {
+              controller.searchTextController.clear();
+            },
+          ),
+          hintText: LocaleKeys.shared_search_hint.tr,
+        ),
+        controller: controller.searchTextController,
+        onFieldSubmitted: (final searchString) {
+          controller.onSearchFieldSubmitted(searchString);
+        },
       );
 
   Widget _loading() => const Center(child: CircularProgressIndicator());

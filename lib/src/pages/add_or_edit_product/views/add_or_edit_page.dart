@@ -123,31 +123,34 @@ class AddOrEditPage<T extends BaseController> extends GetView<T> {
         key: controller.titleAndCountFormKey,
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: ECommerceUtils.extraLargePadding),
-              child: TextFormField(
-                controller: controller.titleTextController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  label: Text(LocaleKeys.shared_name.tr),
-                ),
-                validator: (final value) => controller.checkEmptyField(value),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: ECommerceUtils.extraLargePadding),
-              child: TextFormField(
-                controller: controller.countTextController,
-                decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    label: Text(LocaleKeys.shared_count.tr)),
-                validator: (final value) =>
-                    controller.validateProductInfo(value),
-              ),
-            ),
+            _title(),
+            _count(),
           ],
+        ),
+      );
+
+  Widget _title() => Padding(
+        padding:
+            EdgeInsets.symmetric(vertical: ECommerceUtils.extraLargePadding),
+        child: TextFormField(
+          controller: controller.titleTextController,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            label: Text(LocaleKeys.shared_name.tr),
+          ),
+          validator: (final value) => controller.checkEmptyField(value),
+        ),
+      );
+
+  Widget _count() => Padding(
+        padding:
+            EdgeInsets.symmetric(vertical: ECommerceUtils.extraLargePadding),
+        child: TextFormField(
+          controller: controller.countTextController,
+          decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              label: Text(LocaleKeys.shared_count.tr)),
+          validator: (final value) => controller.validateProductInfo(value),
         ),
       );
 
@@ -170,41 +173,50 @@ class AddOrEditPage<T extends BaseController> extends GetView<T> {
           fieldViewBuilder: (final context, final textController,
               final fieldFocusNode, final onFieldSubmitted) {
             controller.tagsTextController = textController;
-            return TextFormField(
-              controller: textController,
-              focusNode: fieldFocusNode,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                label: Text(LocaleKeys.shared_tags.tr),
-              ),
-              onFieldSubmitted: (final value) {
-                controller.autoCompleteOnSubmitted(value);
-              },
-            );
+            return _tagsInputField(textController, fieldFocusNode);
           },
           optionsViewBuilder:
-              (final context, final onSelected, final options) => Align(
-            alignment: Alignment.topLeft,
-            child: Material(
-              child: SizedBox(
-                width: 350,
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  itemCount: options.length,
-                  itemBuilder: (final context, final index) {
-                    final String option = options.elementAt(index);
-                    return GestureDetector(
-                      onTap: () {
-                        onSelected(option);
-                      },
-                      child: ListTile(
-                        title: Text(option),
-                      ),
-                    );
+              (final context, final onSelected, final options) =>
+                  _generateOptions(options, onSelected),
+        ),
+      );
+
+  Widget _tagsInputField(final TextEditingController textController,
+          final FocusNode fieldFocusNode) =>
+      TextFormField(
+        controller: textController,
+        focusNode: fieldFocusNode,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          label: Text(LocaleKeys.shared_tags.tr),
+        ),
+        onFieldSubmitted: (final value) {
+          controller.autoCompleteOnSubmitted(value);
+        },
+      );
+
+  Widget _generateOptions(final Iterable<String> options,
+          final AutocompleteOnSelected<String> onSelected) =>
+      Align(
+        alignment: Alignment.topLeft,
+        child: Material(
+          child: SizedBox(
+            width: 350,
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              itemCount: options.length,
+              itemBuilder: (final context, final index) {
+                final String option = options.elementAt(index);
+                return GestureDetector(
+                  onTap: () {
+                    onSelected(option);
                   },
-                ),
-              ),
+                  child: ListTile(
+                    title: Text(option),
+                  ),
+                );
+              },
             ),
           ),
         ),
@@ -213,33 +225,33 @@ class AddOrEditPage<T extends BaseController> extends GetView<T> {
   Widget _descriptionAndPrice() => Form(
         key: controller.descriptionAndPriceFormKey,
         child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: ECommerceUtils.extraLargePadding),
-              child: TextFormField(
-                controller: controller.descriptionTextController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  label: Text(LocaleKeys.shared_description.tr),
-                ),
-                validator: (final value) => controller.checkEmptyField(value),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: ECommerceUtils.extraLargePadding),
-              child: TextFormField(
-                controller: controller.priceTextController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  label: Text(LocaleKeys.shared_price.tr),
-                ),
-                validator: (final value) =>
-                    controller.validateProductInfo(value),
-              ),
-            )
-          ],
+          children: [_description(), _price()],
+        ),
+      );
+
+  Widget _description() => Padding(
+        padding:
+            EdgeInsets.symmetric(vertical: ECommerceUtils.extraLargePadding),
+        child: TextFormField(
+          controller: controller.descriptionTextController,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            label: Text(LocaleKeys.shared_description.tr),
+          ),
+          validator: (final value) => controller.checkEmptyField(value),
+        ),
+      );
+
+  Widget _price() => Padding(
+        padding:
+            EdgeInsets.symmetric(vertical: ECommerceUtils.extraLargePadding),
+        child: TextFormField(
+          controller: controller.priceTextController,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            label: Text(LocaleKeys.shared_price.tr),
+          ),
+          validator: (final value) => controller.validateProductInfo(value),
         ),
       );
 

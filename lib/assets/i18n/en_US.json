@@ -59,7 +59,8 @@
 		"no_results_found" : "no results found",
 		"price_filter" : "Price Filter",
 		"products_in_stock" : "products in stock",
-		"filter" : "filter"
+		"filter" : "filter",
+		"switch_language" : "Switch Language"
 
 	}
 }

@@ -80,7 +80,7 @@ abstract class BaseController extends GetxController {
     return result;
   }
 
-  Future<void> getProducts() async {
+  Future<void> initialize() async {
     final List<ProductViewModel> products =
         await addOrEditRepository.getProducts();
     for (final e in products) {
@@ -102,19 +102,9 @@ abstract class BaseController extends GetxController {
   Future<void> modify();
 
   @override
-  void onClose() {
-    titleTextController.dispose();
-    countTextController.dispose();
-    descriptionTextController.dispose();
-    priceTextController.dispose();
-    tagsTextController.dispose();
-    super.onClose();
-  }
-
-  @override
   void onInit() async {
     super.onInit();
     imagePicker = ImagePicker();
-    await getProducts();
+    await initialize();
   }
 }

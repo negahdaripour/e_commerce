@@ -10,13 +10,34 @@ class LoginPage extends GetView<LoginPageController> {
 
   @override
   Widget build(final BuildContext context) => Scaffold(
-      appBar: AppBar(
-        title: Text(
-            '${LocaleKeys.shared_login.tr}/${LocaleKeys.shared_signup.tr}'),
-      ),
-      body: Obx(
-        () => (controller.loading.value) ? _loading() : _body(context),
-      ));
+        appBar: AppBar(
+          title: Text(
+              '${LocaleKeys.shared_login.tr}/${LocaleKeys.shared_signup.tr}'),
+        ),
+        body: Obx(
+          () => (controller.loading.value) ? _loading() : _body(context),
+        ),
+        drawer: Drawer(
+          child: ListTile(
+            title: Padding(
+              padding: EdgeInsets.only(top: ECommerceUtils.bodyVerticalPadding),
+              child: Text(LocaleKeys.shared_switch_language.tr),
+            ),
+            onTap: () {
+              switch (controller.language.value) {
+                case 'english':
+                  controller.language.value = 'farsi';
+                  Get.updateLocale(const Locale('fa', 'IR'));
+                  break;
+                case 'farsi':
+                  controller.language.value = 'english';
+                  Get.updateLocale(const Locale('en', 'US'));
+                  break;
+              }
+            },
+          ),
+        ),
+      );
 
   Widget _loading() => const Center(child: CircularProgressIndicator());
 

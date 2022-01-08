@@ -13,24 +13,22 @@ class ProductDetailsPage extends GetView<ProductDetailController> {
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
-          actions: <Widget>[
-            IconButton(
-              padding: EdgeInsetsDirectional.only(
-                  start: ECommerceUtils.largePadding),
-              constraints: const BoxConstraints(),
-              onPressed: () {
-                controller.onSearchIconPressed();
-              },
-              icon: const Icon(Icons.search_rounded),
-            ),
-            _shoppingCartIcon(context)
-          ],
+          actions: <Widget>[_search(), _shoppingCartIcon(context)],
           title: Text(LocaleKeys.shared_product_detail.tr),
         ),
         body: Obx(
           () =>
               controller.loading.value ? _loading() : _productDetails(context),
         ),
+      );
+
+  Widget _search() => IconButton(
+        padding: EdgeInsetsDirectional.only(start: ECommerceUtils.largePadding),
+        constraints: const BoxConstraints(),
+        onPressed: () {
+          controller.onSearchIconPressed();
+        },
+        icon: const Icon(Icons.search_rounded),
       );
 
   Widget _shoppingCartIcon(final BuildContext context) => Obx(() => Stack(
@@ -54,7 +52,8 @@ class ProductDetailsPage extends GetView<ProductDetailController> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius:
+              BorderRadius.circular(ECommerceUtils.cartItemCountBorderRadius),
         ),
         child: Text(
           '${controller.numberOfItemsInCart.value}',

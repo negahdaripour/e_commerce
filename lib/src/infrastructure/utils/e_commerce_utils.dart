@@ -21,4 +21,5 @@ class ECommerceUtils {
   static double imageHolderHeight = 139.0;
 
   static double splashIconSize = 80.0;
+  static double cartItemCountBorderRadius = 10.0;
 }
