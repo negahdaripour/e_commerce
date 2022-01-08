@@ -6,7 +6,7 @@ void main() {
   testWidgets('number picker widget', (final tester) async {
     const int initialValue = 5;
     const int maxValue = 3;
-    const int minValue = 0;
+    const int minValue = 5;
 
     await tester.pumpWidget(MaterialApp(
       home: Material(
@@ -28,7 +28,7 @@ void main() {
     final subtractFinder =
         find.widgetWithIcon(InkWell, Icons.arrow_forward_ios_rounded);
 
-    // expect(numberFinder, findsOneWidget);
+    expect(numberFinder, findsOneWidget);
     expect(addFinder, findsOneWidget);
     expect(subtractFinder, findsOneWidget);
 

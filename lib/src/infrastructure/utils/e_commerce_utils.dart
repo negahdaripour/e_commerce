@@ -19,4 +19,6 @@ class ECommerceUtils {
 
   static double imageHolderWidth = 139.0;
   static double imageHolderHeight = 139.0;
+
+  static double splashIconSize = 80.0;
 }
