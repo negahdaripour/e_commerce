@@ -24,4 +24,9 @@ class ECommerceUtils {
   static double cartItemCountBorderRadius = 10.0;
   static double searchBarBorderRadius = 4.0;
   static double searchBarInputHeight = 40.0;
+
+  static double costumeDividerHeight = 10.0;
+  static double costumeDividerWidth = 180.0;
+  static double costumeDividerThickness = 1.0;
+  static double costumeDividerMargin = 1.0;
 }

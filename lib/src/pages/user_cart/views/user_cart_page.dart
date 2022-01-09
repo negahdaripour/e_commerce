@@ -133,20 +133,21 @@ class UserCartPage extends GetView<UserCartController> {
       Padding(
         padding: EdgeInsets.all(ECommerceUtils.largePadding),
         child: SizedBox(
-          width: 180.0,
+          width: ECommerceUtils.costumeDividerWidth,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _productTitle(productViewModel, context),
               _productPrice(productViewModel, context),
               SizedBox(
-                height: 10.0,
-                width: 180.0,
+                height: ECommerceUtils.costumeDividerHeight,
+                width: ECommerceUtils.costumeDividerWidth,
                 child: Center(
                   child: Container(
-                    margin:
-                        const EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
-                    height: 1.0,
+                    margin: EdgeInsetsDirectional.only(
+                        start: ECommerceUtils.costumeDividerMargin,
+                        end: ECommerceUtils.costumeDividerMargin),
+                    height: ECommerceUtils.costumeDividerThickness,
                     color: Colors.grey,
                   ),
                 ),
@@ -201,7 +202,9 @@ class UserCartPage extends GetView<UserCartController> {
   Widget _productTotalPrice(final ProductViewModel productViewModel,
           final BuildContext context) =>
       Padding(
-        padding: EdgeInsets.only(bottom: ECommerceUtils.largePadding),
+        padding: EdgeInsets.only(
+            top: ECommerceUtils.largePadding,
+            bottom: ECommerceUtils.largePadding),
         child: Text(
           '${controller.calculateProductTotalPrice(productViewModel)}'
           ' ${LocaleKeys.shared_toomaan.tr}',
