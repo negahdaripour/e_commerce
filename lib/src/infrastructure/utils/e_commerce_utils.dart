@@ -22,4 +22,6 @@ class ECommerceUtils {
 
   static double splashIconSize = 80.0;
   static double cartItemCountBorderRadius = 10.0;
+  static double searchBarBorderRadius = 4.0;
+  static double searchBarInputHeight = 40.0;
 }

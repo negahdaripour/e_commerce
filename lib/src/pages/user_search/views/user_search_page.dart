@@ -22,10 +22,11 @@ class UserSearchPage extends GetView<UserSearchController> {
 
   Widget _searchBar(final BuildContext context) => Container(
         width: double.infinity,
-        height: 40.0,
+        height: ECommerceUtils.searchBarInputHeight,
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColorLight,
-          borderRadius: BorderRadius.circular(4),
+          borderRadius:
+              BorderRadius.circular(ECommerceUtils.searchBarBorderRadius),
         ),
         child: Center(
           child: _searchInputField(context),
