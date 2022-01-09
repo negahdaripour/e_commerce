@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 
 import '../../../../generated/locales.g.dart';
 import '../../../infrastructure/utils/e_commerce_utils.dart';
-import '../../shared/models/product_view_model.dart';
 import '../../shared/widgets/tags.dart';
 import '../controllers/admin_products_page_controller.dart';
+import '../models/product_view_model.dart';
 import '../widgets/product_delete_dialog.dart';
 
 class AdminProductsPage extends GetView<AdminProductsController> {

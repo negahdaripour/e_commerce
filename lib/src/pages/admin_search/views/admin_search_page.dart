@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import '../../../../generated/locales.g.dart';
 import '../../../infrastructure/utils/e_commerce_utils.dart';
 import '../../admin_products/widgets/product_delete_dialog.dart';
-import '../../shared/models/product_view_model.dart';
 import '../../shared/widgets/tags.dart';
 import '../controllers/admin_search_controller.dart';
+import '../models/product_view_model.dart';
 
 class AdminSearchPage extends GetView<AdminSearchController> {
   const AdminSearchPage({final Key? key}) : super(key: key);

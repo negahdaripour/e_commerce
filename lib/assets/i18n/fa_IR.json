@@ -60,6 +60,11 @@
 		"price_filter" : "فیلتر قیمت",
 		"products_in_stock" : "محصولات موجود",
 		"filter" : "فیلتر",
-		"switch_language" : "تغییر زبان"
+		"switch_language" : "تغییر زبان",
+		"username_already_exists": "نام کاربری تکراری است",
+		"password_length_atLeast_6": "رمزعبور با حداقل طول 6",
+		"enter_password": "اول رمزعبور را وارد کنید",
+		"password_does_not_match": "رمزعبور مطابقت ندارد"
+
 	}
 }

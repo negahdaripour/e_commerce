@@ -4,8 +4,8 @@ import 'dart:typed_data';
 import 'package:get/get.dart';
 
 import '../../../../generated/locales.g.dart';
-import '../../shared/models/product_dto.dart';
-import '../../shared/models/product_view_model.dart';
+import '../models/product_dto.dart';
+import '../models/product_view_model.dart';
 import 'base_controller.dart';
 
 class EditProductController extends BaseController {

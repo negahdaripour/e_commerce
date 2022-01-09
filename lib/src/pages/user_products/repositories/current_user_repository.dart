@@ -1,6 +1,6 @@
 import '../../../infrastructure/commons/dio.dart';
-import '../../shared/models/user_dto.dart';
-import '../../shared/models/user_view_model.dart';
+import '../models/user_dto.dart';
+import '../models/user_view_model.dart';
 
 class CurrentUserRepository {
   HttpClient fetcher = HttpClient.dio('http://192.168.7.57:3000/');

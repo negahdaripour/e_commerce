@@ -76,6 +76,13 @@ class LocaleKeys {
   static const shared_products_in_stock = 'shared_products_in_stock';
   static const shared_filter = 'shared_filter';
   static const shared_switch_language = 'shared_switch_language';
+  static const shared_username_already_exists =
+      'shared_username_already_exists';
+  static const shared_password_length_atLeast_6 =
+      'shared_password_length_atLeast_6';
+  static const shared_enter_password = 'shared_enter_password';
+  static const shared_password_does_not_match =
+      'shared_password_does_not_match';
 }
 
 class Locales {
@@ -143,6 +150,10 @@ class Locales {
     'shared_products_in_stock': 'products in stock',
     'shared_filter': 'filter',
     'shared_switch_language': 'Switch Language',
+    'shared_username_already_exists': 'username already exists',
+    'shared_password_length_atLeast_6': 'password length at least 6',
+    'shared_enter_password': 'enter password',
+    'shared_password_does_not_match': 'password doesn\'t match',
   };
   static const fa_IR = {
     'shared_login': 'ورود',
@@ -207,5 +218,9 @@ class Locales {
     'shared_products_in_stock': 'محصولات موجود',
     'shared_filter': 'فیلتر',
     'shared_switch_language': 'تغییر زبان',
+    'shared_username_already_exists': 'نام کاربری تکراری است',
+    'shared_password_length_atLeast_6': 'رمزعبور با حداقل طول 6',
+    'shared_enter_password': 'اول رمزعبور را وارد کنید',
+    'shared_password_does_not_match': 'رمزعبور مطابقت ندارد',
   };
 }

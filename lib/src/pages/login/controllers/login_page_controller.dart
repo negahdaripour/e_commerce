@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../generated/locales.g.dart';
 import '../../../infrastructure/routes/e_commerce_route_names.dart';
-import '../../shared/models/user_view_model.dart';
+import '../models/user_view_model.dart';
 import '../repositories/login_repository.dart';
 
 class LoginPageController extends GetxController {
@@ -24,7 +24,8 @@ class LoginPageController extends GetxController {
 
   Future<void> getUsers() async {
     users.clear();
-    users = await loginRepository.getUsers();
+    final result = await loginRepository.getUsers();
+    result.fold((final left) => left, (final right) => users = right);
     loading.value = false;
   }
 

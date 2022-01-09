@@ -60,7 +60,11 @@
 		"price_filter" : "Price Filter",
 		"products_in_stock" : "products in stock",
 		"filter" : "filter",
-		"switch_language" : "Switch Language"
+		"switch_language" : "Switch Language",
+		"username_already_exists": "username already exists",
+		"password_length_atLeast_6": "password length at least 6",
+		"enter_password": "enter password",
+		"password_does_not_match": "password doesn't match"
 
 	}
 }

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../infrastructure/routes/e_commerce_route_names.dart';
-import '../../shared/models/product_view_model.dart';
 import '../../shared/widgets/filter_dialog.dart';
+import '../models/product_view_model.dart';
 import '../repositories/admin_products_repository.dart';
 
 class AdminProductsController extends GetxController {

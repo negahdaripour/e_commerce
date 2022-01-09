@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../infrastructure/routes/e_commerce_route_names.dart';
-import '../../shared/models/cart_item_view_model.dart';
-import '../../shared/models/product_view_model.dart';
-import '../../shared/models/user_dto.dart';
-import '../../shared/models/user_view_model.dart';
 import '../../shared/widgets/filter_dialog.dart';
+import '../models/cart_item_view_model.dart';
+import '../models/product_view_model.dart';
+import '../models/user_dto.dart';
+import '../models/user_view_model.dart';
 import '../repositories/current_user_repository.dart';
 import '../repositories/user_products_repository.dart';
 

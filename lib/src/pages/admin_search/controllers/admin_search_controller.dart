@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../infrastructure/routes/e_commerce_route_names.dart';
-import '../../shared/models/product_view_model.dart';
+import '../models/product_view_model.dart';
 import '../repositories/search_product_repository.dart';
 
 class AdminSearchController extends GetxController {

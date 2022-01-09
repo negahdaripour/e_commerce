@@ -4,9 +4,9 @@ import 'package:number_picker/number_picker.dart';
 
 import '../../../../generated/locales.g.dart';
 import '../../../infrastructure/utils/e_commerce_utils.dart';
-import '../../shared/models/product_view_model.dart';
 import '../../shared/widgets/tags.dart';
 import '../controllers/user_search_controller.dart';
+import '../models/product_view_model.dart';
 
 class UserSearchPage extends GetView<UserSearchController> {
   const UserSearchPage({final Key? key}) : super(key: key);

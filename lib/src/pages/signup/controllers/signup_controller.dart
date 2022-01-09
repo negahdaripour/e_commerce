@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../generated/locales.g.dart';
-import '../../shared/models/user_dto.dart';
-import '../../shared/models/user_view_model.dart';
+import '../models/user_dto.dart';
+import '../models/user_view_model.dart';
 import '../repositories/signup_repository.dart';
 
 class SignupPageController extends GetxController {
@@ -72,14 +72,13 @@ class SignupPageController extends GetxController {
         isInDB = true;
       }
     }
-    return isInDB ? 'نام کاربری تکراری است' : null;
+    return isInDB ? LocaleKeys.shared_username_already_exists.tr : null;
   }
 
   String? checkPasswordQuality(final String value) {
     if (value.length < 6) {
-      return 'رمزعبور با حداقل طول 6';
+      return LocaleKeys.shared_password_length_atLeast_6.tr;
     }
-    //TODO add more requirements
   }
 
   String? validateUsername(final String? value) {
@@ -100,11 +99,12 @@ class SignupPageController extends GetxController {
   String? validateRepeatedPassword(final String? value) {
     repeatPasswordValidation = checkEmptyField(value);
     if (passwordController.text.isEmpty) {
-      repeatPasswordValidation ??= 'اول رمزعبور را وارد کنید';
+      repeatPasswordValidation ??= LocaleKeys.shared_enter_password.tr;
     }
     if (repeatPasswordValidation == null) {
       if (value != password) {
-        repeatPasswordValidation ??= 'رمزعبور مطابقت ندارد';
+        repeatPasswordValidation ??=
+            LocaleKeys.shared_password_does_not_match_username.tr;
       }
     }
     return repeatPasswordValidation;

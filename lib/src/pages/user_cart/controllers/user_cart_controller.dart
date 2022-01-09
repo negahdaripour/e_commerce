@@ -4,10 +4,10 @@ import 'dart:typed_data';
 import 'package:get/get.dart';
 
 import '../../../infrastructure/routes/e_commerce_route_names.dart';
-import '../../shared/models/cart_item_view_model.dart';
-import '../../shared/models/product_view_model.dart';
-import '../../shared/models/user_dto.dart';
-import '../../shared/models/user_view_model.dart';
+import '../models/cart_item_view_model.dart';
+import '../models/product_view_model.dart';
+import '../models/user_dto.dart';
+import '../models/user_view_model.dart';
 import '../repositories/products_cart_repository.dart';
 import '../repositories/user_cart_repository.dart';
 

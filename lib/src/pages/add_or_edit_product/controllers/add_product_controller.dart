@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../../../generated/locales.g.dart';
-import '../../shared/models/product_dto.dart';
+import '../models/product_dto.dart';
 import 'base_controller.dart';
 
 class AddProductController extends BaseController {

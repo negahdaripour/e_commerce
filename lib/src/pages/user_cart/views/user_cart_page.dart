@@ -4,8 +4,8 @@ import 'package:number_picker/number_picker.dart';
 
 import '../../../../generated/locales.g.dart';
 import '../../../infrastructure/utils/e_commerce_utils.dart';
-import '../../shared/models/product_view_model.dart';
 import '../controllers/user_cart_controller.dart';
+import '../models/product_view_model.dart';
 
 class UserCartPage extends GetView<UserCartController> {
   const UserCartPage({final Key? key}) : super(key: key);
@@ -38,7 +38,7 @@ class UserCartPage extends GetView<UserCartController> {
   Widget _loading() => const Center(child: CircularProgressIndicator());
 
   Widget _shoppingCartIcon(final BuildContext context) => Obx(() => Stack(
-        alignment: const Alignment(1.8, -0.6),
+        alignment: const Alignment(1.0, -0.6),
         children: <Widget>[
           Padding(
             padding:
@@ -182,7 +182,7 @@ class UserCartPage extends GetView<UserCartController> {
   Widget _productTotalPriceAndNumberPicker(
           final ProductViewModel productViewModel,
           final BuildContext context) =>
-      Row(
+      Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

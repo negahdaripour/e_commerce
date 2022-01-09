@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../generated/locales.g.dart';
-import '../../shared/models/product_view_model.dart';
+import '../models/product_view_model.dart';
 import '../repositories/add_or_edit_repository.dart';
 
 abstract class BaseController extends GetxController {
