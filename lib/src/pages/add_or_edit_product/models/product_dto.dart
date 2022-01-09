@@ -28,10 +28,4 @@ class ProductDto {
         'in_stock': inStock,
         'is_active': isActive
       };
-
-  @override
-  String toString() =>
-      'ProductDto{picture: $picture, title: $title, count: $count, tags: $tags,'
-      ' description: $description, price: $price, inStock: $inStock,'
-      ' isActive: $isActive}';
 }

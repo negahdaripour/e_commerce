@@ -38,11 +38,4 @@ class UserDto {
       'cart': userCart
     };
   }
-
-  @override
-  String toString() =>
-      'UserDto{picture: $picture, firstname: $firstname, lastname: $lastname,'
-      ' username: $username,'
-      ' password: $password, address: $address, isAdmin: $isAdmin,'
-      ' favourites: $favourites, cart: $cart}';
 }

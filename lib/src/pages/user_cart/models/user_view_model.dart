@@ -49,34 +49,4 @@ class UserViewModel {
         favourites: favouriteInts,
         cart: cartItems);
   }
-
-  UserViewModel copyWith({
-    final int? id,
-    final String? picture,
-    final String? firstname,
-    final String? lastname,
-    final String? username,
-    final String? password,
-    final String? address,
-    final bool? isAdmin,
-    final List<int>? favourites,
-    final List<CartItemViewModel>? cart,
-  }) =>
-      UserViewModel(
-          id: id ?? this.id,
-          picture: picture ?? this.picture,
-          firstname: firstname ?? this.firstname,
-          lastname: lastname ?? this.lastname,
-          username: username ?? this.username,
-          password: password ?? this.password,
-          address: address ?? this.address,
-          isAdmin: isAdmin ?? this.isAdmin,
-          favourites: favourites ?? this.favourites,
-          cart: cart ?? this.cart);
-
-  @override
-  String toString() =>
-      'UserViewModel{id: $id, firstname: $firstname, lastname: $lastname,'
-      ' username: $username, password: $password, address: $address,'
-      ' isAdmin: $isAdmin, favourites: $favourites, cart: $cart}';
 }
