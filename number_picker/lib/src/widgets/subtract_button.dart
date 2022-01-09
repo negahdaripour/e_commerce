@@ -33,7 +33,7 @@ class SubtractButton extends StatelessWidget {
             height: NumberPickerUtils.costumeButtonSize,
             width: NumberPickerUtils.costumeButtonSize,
             child: Icon(
-              Icons.arrow_back_ios_rounded,
+              Icons.remove,
               size: NumberPickerUtils.iconSize,
               color: Colors.grey,
             ),
@@ -59,7 +59,7 @@ class SubtractButton extends StatelessWidget {
             height: NumberPickerUtils.costumeButtonSize,
             width: NumberPickerUtils.costumeButtonSize,
             child: Icon(
-              Icons.arrow_back_ios_rounded,
+              Icons.remove,
               size: NumberPickerUtils.iconSize,
               color: Theme.of(context).primaryColor,
             ),

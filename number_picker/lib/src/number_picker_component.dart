@@ -25,13 +25,13 @@ class NumberPicker extends StatelessWidget {
         textDirection: TextDirection.rtl,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          _add(context),
+          _add(),
           _amount(),
-          _subtract(context),
+          _subtract(),
         ],
       );
 
-  Widget _add(final BuildContext context) => AddButton(
+  Widget _add() => AddButton(
         initialValue: initialValue,
         getValue: getValue,
         isEnabled: initialValue < maxValue,
@@ -55,7 +55,7 @@ class NumberPicker extends StatelessWidget {
     );
   }
 
-  Widget _subtract(final BuildContext context) => SubtractButton(
+  Widget _subtract() => SubtractButton(
       getValue: getValue,
       initialValue: initialValue,
       isEnabled: initialValue > minValue);

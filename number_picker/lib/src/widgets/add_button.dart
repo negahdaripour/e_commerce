@@ -33,7 +33,7 @@ class AddButton extends StatelessWidget {
           height: NumberPickerUtils.costumeButtonSize,
           width: NumberPickerUtils.costumeButtonSize,
           child: Icon(
-            Icons.arrow_forward_ios_rounded,
+            Icons.add,
             size: NumberPickerUtils.iconSize,
             color: Colors.grey,
           ),
@@ -57,7 +57,7 @@ class AddButton extends StatelessWidget {
             height: NumberPickerUtils.costumeButtonSize,
             width: NumberPickerUtils.costumeButtonSize,
             child: Icon(
-              Icons.arrow_forward_ios_rounded,
+              Icons.add,
               size: NumberPickerUtils.iconSize,
               color: Theme.of(context).primaryColor,
             ),
